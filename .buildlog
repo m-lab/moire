@@ -1,0 +1,7 @@
+---
+build.dart --machine --changed=pubspec.lock --changed=pubspec.yaml --changed=test/test.dart --changed=web/main....
+'package:analyzer_experimental/src/generated/java_core.dart': Error: line 261 pos 30: cannot resolve class name 'ListBase' from 'ListWrapper'
+class ListWrapper<E> extends ListBase<E> implements List<E> {
+                             ^
+build.dart finished [315 ms]
+
