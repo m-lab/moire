@@ -3,11 +3,12 @@ import 'dart:html';
 import 'dart:json';
 import 'package:web_ui';
 
+// TODO: use dart style: http://www.dartlang.org/articles/style-guide/
+
 class App{
   //TODO: implement app model
 }
 
-@observable
 class Metric{
   var name;
   var type;
@@ -33,22 +34,16 @@ class Metric{
   }
   //TODO: implement metric functions
   
-  getMetric(type,year,month){
+  void getMetric(type,year,month){
     var location = '826_eng_london';
     var url = 'http://mlab-metrics-api-server.appspot.com/api/metric/$type?year=$year&month=$month&locale=$location';
-    var request = new HttpRequest();
-    
-    request.open('GET', url);
-    request.on.loadMetric.add((e) => loadMetric(request));
-    request.send();
+  
+    // TODO: error checking
+    HttpRequest.getString(url).then(loadMetric);
   }
 
-  loadMetric(HttpRequest request){
-    if(request.status != 200){
-      print('Whoops, ${request.status}');
-      return;
-    }
-    Map response = JSON.parse(request.responseText);
+  void loadMetric(String response_text){
+    Map response = JSON.parse(response_text);
     String units = response['units'];
     String metric = response['metric'];
     String value = response['value'];
@@ -57,7 +52,6 @@ class Metric{
 
 }
 
-@observable
 class Location{
   var latitude;
   var longtitude;
@@ -72,7 +66,8 @@ class Location{
   void nearestLocation(latitude, longtitude){
     //TODO: query for nearest location based on latitude longitude
   }
-  
+ 
+  // TODO: make these getters
   num getAverageDownloadThroughput(Location, Month){
     var throughput;
     //TODO: getter for average download throughput
@@ -91,12 +86,10 @@ class Location{
   }
 }
 
-@observable
 class Event{
   //TODO: implement events
 }
 
-@observable
 class ISP{
   //TODO: implement internet service provider
 }
