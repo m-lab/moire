@@ -1,6 +1,6 @@
-name: report
+name: moire
 author: Stef van Grieken
-description: The Open Internet Report
+description: moire
 dependencies:
   js: any
   browser: any
