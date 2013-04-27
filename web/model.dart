@@ -89,7 +89,7 @@ class Location{
   }
 }
 
-class Event{
+class Events{
   //TODO: implement events
 }
 

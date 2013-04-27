@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Template &middot; Bootstrap</title>
+    <title>Open Internet Report</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -25,7 +25,7 @@
         margin: 60px 0;
       }
 
-      /* Main marketing message and sign up button */
+      /* Main marketing message and explore button */
       .jumbotron {
         margin: 80px 0;
         text-align: center;
@@ -43,7 +43,7 @@
         padding: 14px 24px;
       }
 
-      /* Supporting marketing content */
+      /* Subsections */
       .marketing {
         margin: 60px 0;
       }
@@ -83,66 +83,62 @@
     </style>
     <link href="css/bootstrap-responsive.css" rel="stylesheet">
 
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
-    <![endif]-->
-
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
-  </head>
-
   <body>
 
     <div class="container">
 
       <div class="masthead">
-        <h3 class="muted">Project name</h3>
+        <h3 class="muted">Open Internet Report</h3>
         <div class="navbar">
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Projects</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Downloads</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="#">Explore</a></li>
+                <li><a href="#">Rankings</a></li>
+                <li><a href="#">Your City</a></li>
+                <li><a href="#">Methods</a></li>
                 <li><a href="#">Contact</a></li>
+                
               </ul>
             </div>
           </div>
         </div><!-- /.navbar -->
       </div>
-
-      <!-- Jumbotron -->
-      <div class="jumbotron">
-        <h1>Marketing stuff!</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <a class="btn btn-large btn-success" href="#">Get started today</a>
+      
+      <div class="hero-unit">
+        <h1>Get me some metrics!</h1>
+        <p>Some nice paragraph for our result.</p>
+        <form on-submit="loadMetric($event)">
+          <p>
+            <input id="location" placeholder="Where do you want to go?">
+          </p>
+          <p>
+            <input type="submit" name="button" id="button" value="submit">
+          </p>
+        </form>
       </div>
-
+  
       <hr>
 
       <!-- Example row of columns -->
       <div class="row-fluid">
         <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
+          <h2>Get the report</h2>
+          <p>Every quarter the Open Technology<br>
+          Institute publishes the State of the Web report. In this report you can find the details from quarter to quarter. The report is published under creative commons so fee free to re-use is. </p>
+          <p><a class="btn" href="#">PDF</a></p>
+          <p><a class="btn" href="#">ePub</a></p>
         </div>
         <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
+          <h2>Countries we cover</h2>
+          <p>The Open Internet report is based on over 3.3 billion measurements worldwide in 2013. We cover most of the world but for some countries we might not have enough data to draw conclusions. </p>
+          <p><a class="btn" href="#">Learn more&raquo;</a></p>
        </div>
         <div class="span4">
-          <h2>Heading</h2>
+          <h2>Fair &amp; Honest measurement</h2>
           <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
+          <p><a class="btn" href="#">Learn more</a></p>
         </div>
       </div>
 

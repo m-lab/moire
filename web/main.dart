@@ -3,6 +3,7 @@ import 'dart:json';
 import 'dart:html';
 import 'view.dart';
 import 'model.dart';
+import 'package:web_ui/web_ui.dart';
 
 /**
  * Learn about the Web UI package by visiting
@@ -10,5 +11,5 @@ import 'model.dart';
  */
 void main() {
   var p = new Metric('Upload Speed','upload_throughput_max','Mbps','Upload Throughput',8,20000,1,2012);
-  p.getMetric(p,'250_j_paris');
+  p.getMetric(p,'250_j_paris');  
 }
