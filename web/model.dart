@@ -1,8 +1,6 @@
 library model;
-import 'dart:html';
 import 'dart:json';
-import 'package:web_ui';
-
+import 'dart:html';
 // TODO: use dart style: http://www.dartlang.org/articles/style-guide/
 
 class App{
@@ -34,22 +32,27 @@ class Metric{
   }
   //TODO: implement metric functions
   
-  void getMetric(type,year,month){
-    var location = '826_eng_london';
+  void getMetric(Metric, location){
     var url = 'http://mlab-metrics-api-server.appspot.com/api/metric/$type?year=$year&month=$month&locale=$location';
-  
     // TODO: error checking
-    HttpRequest.getString(url).then(loadMetric);
+    var request = HttpRequest.getString(url).then(loadMetric);
   }
 
-  void loadMetric(String response_text){
-    Map response = JSON.parse(response_text);
-    String units = response['units'];
-    String metric = response['metric'];
-    String value = response['value'];
+  num loadMetric(String response_text){
+    print(response_text);
+    Map response = parse(response_text);
+    var units = response['units'];
+    var metric = response['metric'];
+    num value = response['value'];
     print('your metric $metric in $units returned $value');
+    return value;
   }
 
+}
+
+class Service{
+  var url;
+  Service(this.url);
 }
 
 class Location{

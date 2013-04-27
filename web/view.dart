@@ -1,5 +1,8 @@
+library view;
 import 'package:web_ui/observe.dart';
 import 'package:web_ui/observe/html.dart';
+import 'dart:json';
+import 'dart:html';
 
 class View{
   //TODO: implement view model
