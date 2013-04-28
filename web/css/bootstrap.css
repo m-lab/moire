@@ -1666,11 +1666,12 @@ select:focus:invalid:focus {
 
 .input-append,
 .input-prepend {
-  display: inline-block;
-  margin-bottom: 10px;
-  font-size: 0;
-  white-space: nowrap;
-  vertical-align: middle;
+	display: inline-block;
+	margin-bottom: 10px;
+	font-size: 0;
+	white-space: nowrap;
+	vertical-align: middle;
+	text-align: right;
 }
 
 .input-append input,

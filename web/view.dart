@@ -5,8 +5,7 @@ import 'dart:json';
 import 'dart:html';
 
 class View{
-  //TODO: implement view model
- 
+   
 }
 
 class Chart extends View{
