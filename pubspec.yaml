@@ -3,6 +3,8 @@ author: Stef van Grieken
 description: The Open Internet Report
 dependencies:
   unittest: any
+  route: any
   js: any
   browser: any
   web_ui: any
+  widget: any
