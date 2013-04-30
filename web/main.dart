@@ -1,15 +1,12 @@
-library main;
+library moire;
 import 'dart:json';
 import 'dart:html';
-import 'view.dart';
-import 'model.dart';
-import 'urls.dart';
 import 'package:web_ui/web_ui.dart';
 import 'package:route/client.dart';
 import 'package:js/js.dart' as js;
-
-final one = new UrlPattern('/one');
-final two = new UrlPattern('/two');
+import 'urls.dart';
+part 'view.dart';
+part 'model.dart';
 
 main() {
   //TODO: move to tests
@@ -20,6 +17,7 @@ main() {
   var m = new Metric('Maximum Upload Throughput','upload_throughput_max','Ms','Some nice RTT','NDT',0.0,'01-12-2012');
   var p = new Period('20120112','20120112');
   c.getMetric(l,m,p);
+  v.generateMasthead();
   v.generateGetMetrics();
   v.generateHomeStatic();
   c.updateLocale(l,'240','j','london');
@@ -30,14 +28,13 @@ main() {
   b.drawGraph();
   List metrics = [12,18,23];
   c.getAverage(metrics);
-  
-  query('#one').classes.add('selected');
-  
+
+
   var router = new Router()
-  ..addHandler(homeUrl, showHome)
+  ..addHandler(root, v.showHome)
+  ..addHandler(localeUrl, v.showExplore)
   ..listen();
 }
 
-void showHome(String path) {
-  //print('honey im home');// nothing to parse from path, since there are no groups
-}
+
+

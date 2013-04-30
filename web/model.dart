@@ -1,7 +1,4 @@
-library model;
-import 'dart:json';
-import 'dart:core';
-import 'dart:html';
+part of moire;
 
 class Controller{
   final List CurrentMetrics = ['min_rtt','upload_throughput_max','download_througput_max'];

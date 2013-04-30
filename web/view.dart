@@ -1,12 +1,17 @@
-library view;
-import 'package:web_ui/observe.dart';
-import 'package:web_ui/observe/html.dart';
-import 'dart:json';
-import 'dart:html';
-import 'model.dart';
-import 'package:js/js.dart' as js;
+part of moire;
 
 class View{
+  
+  void showHome(String path) {
+    print('We are at index ${path}'); 
+  }
+  
+  void showExplore(String path) {
+    print('We are at explore: ${path}');
+        // show article page with loading indicator
+    // load article from server, then render article
+  }
+  
   
   //Generates geMetrics section on the homepage
   void generateGetMetrics() {
@@ -31,6 +36,30 @@ class View{
     metricunit.children.add(searchButton);
   }
   
+  
+  void generateMasthead() {
+    var masthead = query("#masthead");
+    
+    var title = new Element.html("<h3>Open Internet Report</h3>");
+    
+    var menu = new Element.html("""<div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Explore</a></li>
+                <li><a href="#">Rankings</a></li>
+                <li><a href="#">Your City</a></li>
+                <li><a href="#">Methods</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+          </div>""");
+    
+    masthead.children.add(title);
+    masthead.children.add(menu);
+    
+    }
   //Generates static text section on the homepage
   void generateHomeStatic(){
     var homestatic = query("#home-static");
