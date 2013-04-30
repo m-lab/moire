@@ -18,18 +18,17 @@ main() {
   var p = new Period('20120112','20120112');
   c.getMetric(l,m,p);
   v.generateMasthead();
-  v.generateGetMetrics();
-  v.generateHomeStatic();
   c.updateLocale(l,'240','j','london');
   p.updateStartDate('20130112');
   p.updateEndDate('20140112');
   print(p.startDate);
   print(p.endDate);
   b.drawGraph();
-  List metrics = [12,18,23];
+  List metrics = [28,18,23];
   c.getAverage(metrics);
-
-
+  c.getChange(metrics);
+  
+  //Handles url's
   var router = new Router()
   ..addHandler(root, v.showHome)
   ..addHandler(localeUrl, v.showExplore)

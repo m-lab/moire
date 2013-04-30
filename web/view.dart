@@ -4,6 +4,8 @@ class View{
   
   void showHome(String path) {
     print('We are at index ${path}'); 
+    this.generateGetMetrics();
+    this.generateHomeStatic();
   }
   
   void showExplore(String path) {
@@ -12,6 +14,23 @@ class View{
     // load article from server, then render article
   }
   
+  void showRankings(String path) {
+    print('We are at rankings: ${path}');
+        // show article page with loading indicator
+    // load article from server, then render article
+  }
+  
+  void showMethods(String path) {
+    print('We are at methods: ${path}');
+        // show article page with loading indicator
+    // load article from server, then render article
+  }
+  
+  void showContacts(String path) {
+    print('We are at contact: ${path}');
+        // show article page with loading indicator
+    // load article from server, then render article
+  }
   
   //Generates geMetrics section on the homepage
   void generateGetMetrics() {

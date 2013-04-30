@@ -42,6 +42,13 @@ class Controller{
     return avg;
   }
   
+  double getChange(metrics){
+    //TODO: error handling
+    double change = (metrics.last - metrics.first) / metrics.last; 
+    print('your change is ${change}');
+    return change;
+  }
+  
   void updateLocale(Locale, [country, region, city]){
     //TODO: error handling
     Locale.country = country;
@@ -82,7 +89,21 @@ class Locale{
   String type;
   
   Locale(this.latitude,this.longtitude,this.continent, this.country,this.region, this.city, this.type);
- 
+  
+  num getParent(){
+    var location = "${this.country}_${this.region}_${this.city}";
+  }
+  
+  void getNearest(double lat, double lon){
+    var url = 'http://mlab-metrics-api-server.appspot.com/api/nearest?lat=$lat&lon=$lon';
+    var request = HttpRequest.getString(url).then(loadNearest);
+  }
+  
+  void loadNearest(String response_text){
+    //TODO: fix API server and make sure it doesnt respond with a 500
+    print(response_text);
+  }
+
 }
 
 class Period{
