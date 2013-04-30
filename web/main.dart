@@ -3,10 +3,13 @@ import 'dart:json';
 import 'dart:html';
 import 'view.dart';
 import 'model.dart';
+import 'urls.dart';
 import 'package:web_ui/web_ui.dart';
 import 'package:route/client.dart';
 import 'package:js/js.dart' as js;
 
+final one = new UrlPattern('/one');
+final two = new UrlPattern('/two');
 
 main() {
   //TODO: move to tests
@@ -27,4 +30,14 @@ main() {
   b.drawGraph();
   List metrics = [12,18,23];
   c.getAverage(metrics);
+  
+  query('#one').classes.add('selected');
+  
+  var router = new Router()
+  ..addHandler(homeUrl, showHome)
+  ..listen();
+}
+
+void showHome(String path) {
+  //print('honey im home');// nothing to parse from path, since there are no groups
 }
