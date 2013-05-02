@@ -52,21 +52,30 @@ class Controller{
    * is used to compute aggregates over time.
    */
   double getAverage(List l){
-    //TODO: error handling for empty list 
-    double avg = l.reduce((value, element) => value + element) / l.length; 
-    print('Your average is ${avg}');
-    return avg;
+    if(l != null){
+      double avg = l.reduce((value, element) => value + element) / l.length; 
+      print('Your average is ${avg}');
+      return avg;
+    }
+    else{
+      print("Your list cannot be empty");
+    }
   }
 
   /**
    * Returns the percentage change of a list of metrics.A list of metrics
    * is used to compute aggregates over time.
    */
-  //TODO: error handling for empty list, one element. 
+
   double getChange(List l){
+    if(l != null){
     double change = ((l.last - l.first) / l.last)*100; 
     print('Your change is ${change.toStringAsFixed(1)} %');
     return change;
+    }
+    else{
+      print("Your list cannot be empty");
+    }
   } 
 }
 

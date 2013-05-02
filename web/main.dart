@@ -7,7 +7,11 @@ main() {
   var v = new View();
   var c = new Controller();
   var b = new Chart('Some Title','none','LineChart',200,200);
+<<<<<<< HEAD
   var l = new Locale(continent: 'Europe', country: 'GB', region: 'H9', city: 'London');
+=======
+  var l = new Locale(0.0, 0.0, 'Europe', 'GB', 'H9', 'London');
+>>>>>>> API Requests
   var m = new Metric('Maximum Upload Throughput','upload_throughput_max','Ms','Some nice RTT','NDT',0.0,'01-12-2012');
   var p = new Period('20120112','20120112');
   c.getMetric(l,m,p).catchError((e) {

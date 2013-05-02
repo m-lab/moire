@@ -12,6 +12,7 @@ class Locale{
   final String country;
   final String region;
   final String city;
+<<<<<<< HEAD
 
   static Future<Locale> fromLatitudeAndLongitude(double latitude, double longitude) {
     Completer completer = new Completer();
@@ -33,6 +34,13 @@ class Locale{
   Locale({this.continent: "", this.country: "", this.region: "", this.city: ""});
 
   String toString() {
+=======
+  //TODO: make everything final that is set in the constructor, check validation in the constructor. 
+  
+  Locale(this.latitude,this.longtitude,this.continent,this.country,this.region,this.city);
+  
+  String toString(){ 
+>>>>>>> API Requests
     String location = '';
     if (!this.country.isEmpty) {
       location += '${this.country}';
@@ -43,7 +51,6 @@ class Locale{
     if (!this.city.isEmpty) {
       location += '_${this.city}';
     }
-    print('location to string resulted in ${location}');
     return location;
   }
 
