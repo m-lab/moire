@@ -1,7 +1,6 @@
 .DS_Store
 pubspec.lock
 packages
-
 .buildlog
+web/out
 
-.gitignore
