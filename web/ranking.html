@@ -98,20 +98,7 @@ body {
     </div>
   </div>
   <div id= "controls" class="row-fluid">
-    <div class="span4">
-      <form class="form-search">
-        <div class="input-append">
-          <input class="span10" id="appendedInputButton" type="text" placeholder="Your country...">
-          <button class="btn" type="button">Search</button>
-        </div>
-      </form>
-      <ul class="breadcrumb">
-        <li><a href="#">World</a> <span class="divider">/</span></li>
-        <li><a href="#">Europe</a> <span class="divider">/</span></li>
-        <li class="active">Netherlands</li>
-      </ul>
-    </div>
-    <div align="right" class="span4 offset4">
+        <div align="right" class="span4 offset8">
       <div class="btn-group"> <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Jan 2010 - Jan 2011 <span class="caret"></span> </a>
         <ul class="dropdown-menu">
           <!-- dropdown menu links -->
@@ -120,62 +107,94 @@ body {
     </div>
   </div>
   <div id="content" class="row-fluid">
-    <div id="left-controls" class="span3">
-      <h4>
-      Netherlands
-      </H3>
-      <h6>Download Speed</h6>
-      <ul class="inline">
-        <li><i class="icon-arrow-up"></i></li>
-        <li>
-          <h1>15.2</h1>
-        </li>
-        <li>
-          <p>mbps</p>
-        </li>
-      </ul>
-      <h6>Upload Speed</h6>
-      <ul class="inline">
-        <li><i class="icon-arrow-down"></i></li>
-        <li>
-          <h1>9</h1>
-        </li>
-        <li>
-          <p>mbps</p>
-        </li>
-      </ul>
-      <h4>Go Deeper</h4>
-      <p>Explore some of the regions in:</p>
+    <div id="left-controls" class="span4">
+      <h4>Metric</H4>
+      <p>Select the metric your interested in:</p>
+      <div class="btn-group"> <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Average Download Speed <span class="caret"></span> </a>
+        <ul class="dropdown-menu">
+          <!-- dropdown menu links -->
+        </ul>
+      </div>
+      <p>&nbsp</p>
+      <h4>Rank</H4>
+      <p>Select what you would like to rank:</p>
+      <label class="radio">
+  <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"> Countries
+</label>
+<label class="radio">
+  <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+  Regions
+</label>
+<label class="radio">
+  <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+  Cities
+</label>
+<label class="radio">
+  <input type="radio" name="optionsRadios" id="optionsRadios3" value="option4">
+  Internet Service Providers
+</label>
+      <p>&nbsp</p>
+      <h4>Filter</H4>
+      <p>Filter away:</p>
     </div>
-    <div id="main-content" class="span9">
+    <div id="main-content" class="span8">
       <div class="row">
-        <h4>Speed</H4>
-        <p>These metrics are related to the speed that users are achieving on their connections. We conclude this based on ${nrOfTests} individual test results between ${startDate} and ${endDate}. </p>
+        <h4>Average Download Speed</H4>
+        <p>Average download speed is the median speed that users achieve on their connection. The average download speed in the world was 14 mb/s. The year on year growth in the world was +2%. Compared to last quarter the growth was +1%. </p></div>
+      <div class="row">
+        <p>graph me up</p>
       </div>
       <div class="row">
-        <div class="span6">
-          <h5>Average Download Speed</H5>
-          <p>Average download speed is the median speed that users achieve on their connection. The average download speed in ${Location} was ${Metric.value} ${Metric.unit}. The year on year growth was ${Metric.getChange}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
-          <p>
-            <button class="btn btn-primary" type="button">Learn More</button>
-          </p>
+        <hr>
+      </div>
+      <div class="row">
+        <div class="span8">
+         <h2>#1 The Netherlands</h2>
         </div>
         <div class="span4">
-          <p>Graph </p>
+         <ul class="inline">
+            <li>
+              <h1>15.2</h1>
+            </li>
+            <li>
+              <p>mbps</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+            <div class="row">
+        <div class="span8">
+         <h2>#2 Some Country</h2>
+        </div>
+        <div class="span4">
+         <ul class="inline">
+            <li>
+              <h1>14.9</h1>
+            </li>
+            <li>
+              <p>mbps</p>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="row">
-        <div class="span6">
-          <h5>Average Download Speed</H5>
-          <p>Average download speed is the median speed that users achieve on their connection. The average download speed in ${Location} was ${Metric.value} ${Metric.unit}. The year on year growth was ${Metric.getChange}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
-          <p>
-            <button class="btn btn-primary" type="button">Learn More</button>
-          </p>
+        <div class="span8">
+         <h2>#3 Some Country</h2>
         </div>
         <div class="span4">
-          <p>Graph </p>
+         <ul class="inline">
+            <li>
+              <h1>13.5</h1>
+            </li>
+            <li>
+              <p>mbps</p>
+            </li>
+          </ul>
         </div>
       </div>
+      </div>
+      </div>
+      
     </div>
   </div>
 </div>

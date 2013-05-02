@@ -2,12 +2,13 @@ part of moire;
 
 /**
  * An object that controls the application using the models and the view. 
- * Contains a list of [CurrentMetrics] that can be used in the application. 
+ * Contains a list of [SupportedMetrics] that can be used in the application. 
  */
 
 
 class Controller{
-  final List CurrentMetrics = ['min_rtt','upload_throughput_max','download_througput_max'];
+  final List SupportedMetrics = ['min_rtt','upload_throughput_max','download_througput_max'];
+  final Map MetricGraphs = [];
   
   /**
    * Requests the value of a metric given a location, period and metric. 
@@ -53,6 +54,7 @@ class Controller{
     return metrics;
   }
   
+
   /**
    * Returns the average of a list of metrics. A list of metrics 
    * is used to compute aggregates over time. 
