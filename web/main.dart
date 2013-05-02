@@ -22,7 +22,7 @@ main() {
   p.updateEndDate('20140112');
   print(p.startDate);
   print(p.endDate);
-//  b.drawGraph();
+  b.drawGraph();
   List metrics = [180,18,23];
   c.getAverage(metrics);
   c.getChange(metrics);

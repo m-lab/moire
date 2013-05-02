@@ -1,22 +1,18 @@
 part of moire;
 
-/**
- * An object that controls the application using the models and the view.
- * Contains a list of [SupportedMetrics] that can be used in the application.
- */
-
-
+/** Container for all logic for the application. */
 class Controller{
-  final List SupportedMetrics = ['min_rtt','upload_throughput_max','download_througput_max'];
-  
-  Future<Map> getMetric(locale,metric,period){
+  /** Given a [locale], a [metric], and a [period], return a Map containing the value of the metric. */ 
+  // TODO: create a getMetricForMonth method that does this and call it from a getMetricsForPeriod
+  // method that iterates over a Duration/Period.
+  Future<Map> getMetric(Locale locale, Metric metric, Period period) {
     String type = metric.type;
     String location = locale.toString();
     print(location);
     var month = period.startDate.month;
     var year = period.startDate.year;
-    String url = 'http://mlab-metrics-api-server.appspot.com/api/metric/$type?year=$year&month=$month&locale=$location';  
-    
+
+    String url = "$kMetricsAPIUrl/metric/$type?year=$year&month=$month&locale=$location"; 
     Completer completer = new Completer();
     
     loadData(completer,url);
@@ -32,6 +28,12 @@ class Controller{
         completer.completeError(result["error"]);
       } else {
         completer.complete(result);
+        if (result.containsKey("metric") && result.containsKey("value") && result.containsKey("units")) {
+          print('Your location ${location} has a ${result["metric"]} of ${result["value"]} in ${result["units"]}');
+          completer.complete(result);
+        } else {
+          completer.completeError("Malformed result: $result");
+        }
       }
     })
     .catchError((e) {
@@ -39,10 +41,9 @@ class Controller{
        print('le shit hit le fan ${e}');
     });
   }
-  /**
-   * Returns a list of metrics during a certain period.
-   */
-  List getMetrics(Location, Metric, Period){
+  
+  /** Returns a list of metrics during a certain period. */
+  List getMetrics(Locale location, Metric metric, Period period) {
   //TODO: Based on Location and Period, iterate over months between startDate and endDate and add values to list
     List metrics;
   //  for(i=Period.startMonth.month; i<Period.endMonth.month; i++)
@@ -55,15 +56,13 @@ class Controller{
    * Returns the average of a list of metrics. A list of metrics
    * is used to compute aggregates over time.
    */
-  double getAverage(List l){
-    if(l != null){
-      double avg = l.reduce((value, element) => value + element) / l.length; 
-      print('Your average is ${avg}');
-      return avg;
-    }
-    else{
-      print("Your list cannot be empty");
-    }
+  double getAverage(List<num> l) {
+    assert(l != null);
+    if (l.isEmpty)
+      return 0.0;
+    double avg = l.reduce((value, element) => value + element) / l.length; 
+    print('Your average is ${avg}');
+    return avg;
   }
 
   /**
@@ -71,15 +70,13 @@ class Controller{
    * is used to compute aggregates over time.
    */
 
-  double getChange(List l){
-    if(l != null){
+  double getChange(List<num> l) {
+    assert(l != null);
+    if (l.isEmpty)
+      return 0.0;
     double change = ((l.last - l.first) / l.last)*100; 
     print('Your change is ${change.toStringAsFixed(1)} %');
     return change;
-    }
-    else{
-      print("Your list cannot be empty");
-    }
   } 
 }
 

@@ -1,29 +1,29 @@
 part of moire;
 
-/**
- * An object that keeps track of the location under consideration.
- * Contains either a [latitude] and [longtitude] that can be used to find
- * other parameters using the [getNearest] method, or it contains [continent],
- * [country],[region] and [city] based on the M-lab API.
- */
-
-class Locale{
+/** Represents a location. */
+class Locale {
   final String continent;
   final String country;
   final String region;
   final String city;
-    
+
+  /** Constructs a Locale that is nearest to a given [latitude] and [longitude]. */
   static Future<Locale> fromLatitudeAndLongitude(double latitude, double longitude) {
     Completer completer = new Completer();
 
-    HttpRequest.getString("URL_TO_GET_COUNTRY_FROM_LAT_LONG").then((String response) {
-      Map data = parse(response);
-      if (data.containsKey("error")) {
-        completer.completeError(data["error"]);
+    String url = "$kMetricsAPIUrl/nearest?lat=$latitude&lon=$longitude";
+
+    HttpRequest.getString(url).then((response) {
+      print(response);
+      Map result = parse(response);
+      if (result.containsKey("error")) {
+        completer.completeError(result["error"]);
       } else {
-        completer.complete(new Locale(country: data["country"],
-                                      region: data["region"],
-                                      city: data["city"]));
+        Locale l = new Locale(country: result["country"],
+                              region: result["region"],
+                              city: result["city"]);
+        print('The nearest location is $l');
+        completer.complete(l);
       }
     });
 
@@ -32,10 +32,7 @@ class Locale{
 
   Locale({this.continent: "", this.country: "", this.region: "", this.city: ""});
 
- 
-  //TODO: make everything final that is set in the constructor, check validation in the constructor. 
-    
-  String toString(){ 
+  String toString() {
     String location = '';
     if (!this.country.isEmpty) {
       location += '${this.country}';
@@ -86,10 +83,10 @@ class Locale{
    */
   //TODO: error handling for empty Http response, no response from server, malformed location string
 
-  Future<Map> getParent(){
+  Future<Map> getParent() {
     String location = this.toString();
     print(location);
-    String url = 'http://mlab-metrics-api-server.appspot.com/api/locale/$location';
+    String url = "$kMetricsAPIUrl/locale/$location";
 
     Completer completer = new Completer();
     HttpRequest.getString(url).then((response) {
@@ -112,25 +109,22 @@ class Locale{
    * Throws an [Exception] if [Locale] doesn't have the appropriate values, or
    * Metrics API server cannot be reached.Callers of this can use 'getChildren().then((List l) { ... })
    */
-
-  Future<Map> getChildren(){
+  Future<Map> getChildren() {
     String location = this.toString();
-    String url = 'http://mlab-metrics-api-server.appspot.com/api/locale/$location';
+    String url = "$kMetricsAPIUrl/locale/$location";
 
     Completer completer = new Completer();
     HttpRequest.getString(url).then((response) {
-
       print(response);
       Map result = parse(response);
       if (result.containsKey("error")) {
         completer.completeError(result["error"]);
       } else {
-        completer.complete(result["children"]);
         print('The children of your location are ${result["children"]}');
+        completer.complete(result["children"]);
       }
     })
     .catchError((error) => print(error));
     return completer.future;
   }
-
 }
