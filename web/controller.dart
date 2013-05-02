@@ -16,25 +16,29 @@ class Controller{
     var month = period.startDate.month;
     var year = period.startDate.year;
     String url = 'http://mlab-metrics-api-server.appspot.com/api/metric/$type?year=$year&month=$month&locale=$location';  
-  
+    
     Completer completer = new Completer();
+    
+    loadData(completer,url);
+    
+    return completer.future;
+  }
+  
+  
+  Completer loadData(Completer completer, String url) {
     HttpRequest.getString(url).then((response) {
-      print(response);
       Map result = parse(response);
       if (result.containsKey("error")) {
         completer.completeError(result["error"]);
       } else {
         completer.complete(result);
-        print('Your location ${location} has a ${result["metric"]} of ${result["value"]} in ${result["units"]}');
       }
     })
     .catchError((e) {
         // Invoked when the future is completed with an error
        print('le shit hit le fan ${e}');
     });
-    return completer.future;
   }
-  
   /**
    * Returns a list of metrics during a certain period.
    */

@@ -34,8 +34,7 @@ class Locale{
 
  
   //TODO: make everything final that is set in the constructor, check validation in the constructor. 
-  
-  
+    
   String toString(){ 
     String location = '';
     if (!this.country.isEmpty) {
@@ -74,7 +73,6 @@ class Locale{
         completer.completeError(result["error"]);
       } else {
         completer.complete(result["city"]);
-        print('The nearest city is ${result["city"]}');
       }
     });
     return completer.future;
@@ -102,7 +100,6 @@ class Locale{
         completer.completeError(result["error"]);
       } else {
         completer.complete(result["parent"]);
-        print('The parent of your location is ${result["parent"]}');
       }
     })
     .catchError((error) => print(error));
@@ -115,11 +112,6 @@ class Locale{
    * Throws an [Exception] if [Locale] doesn't have the appropriate values, or
    * Metrics API server cannot be reached.Callers of this can use 'getChildren().then((List l) { ... })
    */
-
-  // TODO: this won't do what you think - the loadChildren return won't be
-  // returned to the caller. Instead, you probably want this to return a
-  // Future<List> that is only completed once loadChildren is called. Then
-  // callers of this can use 'getChildren().then((List l) { ... });'
 
   Future<Map> getChildren(){
     String location = this.toString();
