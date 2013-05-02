@@ -30,9 +30,9 @@ main() {
   
   //Handles url's
   var router = new Router()
-  ..addHandler(root, v.showHome)
-  ..addHandler(localeUrl, v.showExplore)
-  ..listen();
+      ..addHandler(root, v.showHome)
+      ..addHandler(localeUrl, v.showExplore)
+      ..listen();
 }
 
 
