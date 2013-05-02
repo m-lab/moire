@@ -1,14 +1,13 @@
 part of moire;
 
 /**
- * An object that controls the application using the models and the view. 
- * Contains a list of [SupportedMetrics] that can be used in the application. 
+ * An object that controls the application using the models and the view.
+ * Contains a list of [SupportedMetrics] that can be used in the application.
  */
 
 
 class Controller{
   final List SupportedMetrics = ['min_rtt','upload_throughput_max','download_througput_max'];
-  //final Map MetricGraphs;
   
   Future<Map> getMetric(locale,metric,period){
     String type = metric.type;
@@ -36,9 +35,8 @@ class Controller{
     return completer.future;
   }
   
-  
   /**
-   * Returns a list of metrics during a certain period. 
+   * Returns a list of metrics during a certain period.
    */
   List getMetrics(Location, Metric, Period){
   //TODO: Based on Location and Period, iterate over months between startDate and endDate and add values to list
@@ -47,11 +45,11 @@ class Controller{
   //    metrics[i] = this.getMetric(Location, Metric, Period);
     return metrics;
   }
-  
+
 
   /**
-   * Returns the average of a list of metrics. A list of metrics 
-   * is used to compute aggregates over time. 
+   * Returns the average of a list of metrics. A list of metrics
+   * is used to compute aggregates over time.
    */
   double getAverage(List l){
     //TODO: error handling for empty list 
@@ -59,10 +57,10 @@ class Controller{
     print('Your average is ${avg}');
     return avg;
   }
-  
+
   /**
-   * Returns the percentage change of a list of metrics.A list of metrics 
-   * is used to compute aggregates over time. 
+   * Returns the percentage change of a list of metrics.A list of metrics
+   * is used to compute aggregates over time.
    */
   //TODO: error handling for empty list, one element. 
   double getChange(List l){
@@ -73,7 +71,7 @@ class Controller{
 }
 
 /**
- * Class to define web services. 
+ * Class to define web services.
  */
 class Service{
   var url;
@@ -81,7 +79,7 @@ class Service{
 }
 
 /**
- * Class to define internet service providers. 
+ * Class to define internet service providers.
  */
 class ISP{
   //TODO: implement internet service provider
