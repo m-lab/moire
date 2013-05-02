@@ -8,40 +8,34 @@ part of moire;
 
 class Controller{
   final List SupportedMetrics = ['min_rtt','upload_throughput_max','download_througput_max'];
-  final Map MetricGraphs = [];
+  //final Map MetricGraphs;
   
-  /**
-   * Requests the value of a metric given a location, period and metric. 
-   * Formats Location,Metric and Period into the proper HTTP GET URL, and performs a HTTP request. 
-   * Calls loadmetric for the response. 
-   */
-  //TODO: handle location hierarcy in parsing results. If statement to check if region and city =! null
-  num getMetric(Location,Metric,Period){
-    var type = Metric.type;
-    var month = Period.startDate.month;
-    var year = Period.startDate.year;
-   
-    var location = "${Location.country}_${Location.region}_${Location.city}";   
-    var url = 'http://mlab-metrics-api-server.appspot.com/api/metric/$type?year=$year&month=$month&locale=$location';
-    // TODO: error checking
-    var request = HttpRequest.getString(url).then(loadMetric);
+  Future<Map> getMetric(locale,metric,period){
+    String type = metric.type;
+    String location = locale.toString();
+    print(location);
+    var month = period.startDate.month;
+    var year = period.startDate.year;
+    String url = 'http://mlab-metrics-api-server.appspot.com/api/metric/$type?year=$year&month=$month&locale=$location';  
+  
+    Completer completer = new Completer();
+    HttpRequest.getString(url).then((response) {
+      print(response);
+      Map result = parse(response);
+      if (result.containsKey("error")) {
+        completer.completeError(result["error"]);
+      } else {
+        completer.complete(result);
+        print('Your location ${location} has a ${result["metric"]} of ${result["value"]} in ${result["units"]}');
+      }
+    })
+    .catchError((e) {
+        // Invoked when the future is completed with an error
+       print('le shit hit le fan ${e}');
+    });
+    return completer.future;
   }
   
-  /**
-   * Loads the metric using the HTTP response. 
-   * Grabs the JSON string and maps the respons to variables.
-   * Returns the value. 
-   */
-  num loadMetric(String response_text){
-    print(response_text);
-    Map response = parse(response_text);
-    var units = response['units'];
-    var metric = response['metric'];
-    double value = response['value'];
-    return value;
-    //TODO: return value to metric, error handling
-    window.alert('your metric $metric in $units returned $value');
-  }
   
   /**
    * Returns a list of metrics during a certain period. 
@@ -59,9 +53,9 @@ class Controller{
    * Returns the average of a list of metrics. A list of metrics 
    * is used to compute aggregates over time. 
    */
-  double getAverage(List){
+  double getAverage(List l){
     //TODO: error handling for empty list 
-    double avg = List.reduce((value, element) => value + element) / List.length; 
+    double avg = l.reduce((value, element) => value + element) / l.length; 
     print('Your average is ${avg}');
     return avg;
   }
@@ -71,25 +65,11 @@ class Controller{
    * is used to compute aggregates over time. 
    */
   //TODO: error handling for empty list, one element. 
-  double getChange(List){
-    double change = ((List.last - List.first) / List.last)*100; 
+  double getChange(List l){
+    double change = ((l.last - l.first) / l.last)*100; 
     print('Your change is ${change.toStringAsFixed(1)} %');
     return change;
-  }
-  
-  /**
-   * Updates the current locale to another locale. 
-   */
-  //TODO: error handling, chose wether to spit or remove altogether.
-  void updateLocale(Locale, [country, region, city]){
-    Locale.country = country;
-    Locale.region = region;
-    Locale.city = city;
-  }
-  
-  void getNearest(){
-    //Todo: get the nearest existing location of an input
-  }
+  } 
 }
 
 /**
