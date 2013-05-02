@@ -26,10 +26,14 @@ class Locale{
    * Metrics API server cannot be reached.
    */
   //TODO: error handling, todo, generic api request handling
-  void getParent(){
-        var location = "${this.country}_${this.region}_${this.city}";
-    var url = 'http://mlab-metrics-api-server.appspot.com/api/locale/$location';
-    var request = HttpRequest.getString(url).then(loadParent);
+  // TODO: This won't do what you think as loadParent's return is not returned
+  // to the caller. Instead, this should return a Future<String> which should
+  // be completed when loadParent is called. Then callers can use:
+  // 'getParent().then((String s) { ... });'
+  void getParent() {
+    String location = "${this.country}_${this.region}_${this.city}";
+    String url = 'http://mlab-metrics-api-server.appspot.com/api/locale/$location';
+    HttpRequest.getString(url).then(loadParent);
   }
   
   /**
@@ -54,6 +58,10 @@ class Locale{
    * Metrics API server cannot be reached.
    */
   
+  // TODO: this won't do what you think - the loadChildren return won't be
+  // returned to the caller. Instead, you probably want this to return a
+  // Future<List> that is only completed once loadChildren is called. Then
+  // callers of this would use 'getChildren().then((List l) { ... });'
   void getChildren(){
     var location = "${this.country}";
     var url = 'http://mlab-metrics-api-server.appspot.com/api/locale/$location';
@@ -71,31 +79,24 @@ class Locale{
     Map response = parse(response_text);
     var parent = response['parent'];
     //TODO: error handling, get every child in the list (subtyping problem now)
-    for (Map t in response["children"]) 
+    for (Map t in response["children"])
       print(t["children"]);
   }
  
   /**
-   * Requests nearest existing location using a [lat] and [long]. 
-   * Formats latitude and longtitude into the proper HTTP GET URL, and performs a HTTP request. 
-   * [loadNearest] handles the response of the request. 
+   * Requests nearest existing location using a [lat] and [lon]. 
+   * Formats latitude and longtitude into the proper HTTP GET URL, and performs
+   * a HTTP request. 
+   * On response, loades the children locations, grabs the JSON string, and
+   * maps the response to variables. 
    * Throws an [Exception] if [lat] and [lon] are malformed, or 
    * Metrics API server cannot be reached.
    */
-  
+  //TODO: fix API server and make sure it doesnt respond with a 500
   void getNearest(double lat, double lon){
     var url = 'http://mlab-metrics-api-server.appspot.com/api/nearest?lat=$lat&lon=$lon';
-    var request = HttpRequest.getString(url).then(loadNearest);
+    var request = HttpRequest.getString(url).then((String response_text) {
+        print(response_text);
+    });
   }
-  
-  /**
-   * Loads the children locations using the HTTP response. 
-   * Grabs the JSON string and maps the respons to variables.
-   * Returns a Location. 
-   */ 
-  //TODO: fix API server and make sure it doesnt respond with a 500
-  void loadNearest(String response_text){
-    print(response_text);
-  }
-
 }
