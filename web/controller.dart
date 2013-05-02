@@ -51,6 +51,7 @@ class Controller{
    * is used to compute aggregates over time.
    */
   double getAverage(List<num> l) {
+    assert(l != null);
     if (l.isEmpty)
       return 0.0;
     double avg = l.reduce((value, element) => value + element) / l.length; 
@@ -62,8 +63,9 @@ class Controller{
    * Returns the percentage change of a list of metrics.A list of metrics
    * is used to compute aggregates over time.
    */
-  //TODO: error handling for empty list, one element. 
-  double getChange(List<double> l) {
+
+  double getChange(List<num> l) {
+    assert(l != null);
     if (l.isEmpty)
       return 0.0;
     double change = ((l.last - l.first) / l.last)*100; 

@@ -43,7 +43,6 @@ class Locale {
     if (!this.city.isEmpty) {
       location += '_${this.city}';
     }
-    print('location to string resulted in ${location}');
     return location;
   }
 
