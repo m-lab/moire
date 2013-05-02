@@ -1,17 +1,6 @@
+part of moire_test;
 
-// test for report
-
-import 'dart:io';
-import 'package:web_ui/testing/render_test.dart';
-import 'package:unittest/unittest.dart';
-import 'package:unittest/html_config.dart';
-
-import '../web/moire.dart';
-
-void main() {
-  //Set up client side HTML configuration
-  useHtmlConfiguration();
-
+void testMetric() {
   group('Metrics', () {
     test("Metric constructor", () {
       Metric item = new Metric('Minimum RTT','rtt_min','msec','RoundtripTime',8,20000,7,2012);
