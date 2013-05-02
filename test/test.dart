@@ -6,8 +6,7 @@ import 'package:web_ui/testing/render_test.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart';
 
-import '../web/model.dart';
-import '../web/view.dart';
+
 
 void main() {
   //Set up client side HTML configuration
