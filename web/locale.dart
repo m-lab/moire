@@ -47,35 +47,6 @@ class Locale {
   }
 
   /**
-   * Requests nearest existing location using a [lat] and [lon].
-   * Formats latitude and longtitude into the proper HTTP GET URL, and performs
-   * a HTTP request.
-   * On response, loades the children locations, grabs the JSON string, and
-   * maps the response to variables.
-   * Throws an [Exception] if [lat] and [lon] are malformed, or
-   * Metrics API server cannot be reached.
-   */
-
-  //TODO: error handling for empty Http response, no response from server, malformed location string
-
-  Future<Map> getNearest(double lat, double lon){
-    String url = 'http://mlab-metrics-api-server.appspot.com/api/nearest?lat=$lat&lon=$lon';
-
-    Completer completer = new Completer();
-    HttpRequest.getString(url).then((response) {
-
-      print(response);
-      Map result = parse(response);
-      if (result.containsKey("error")) {
-        completer.completeError(result["error"]);
-      } else {
-        completer.complete(result["city"]);
-      }
-    });
-    return completer.future;
-  }
-
-  /**
    * Requests the parent location of a location using the M-lab Metrics API.
    * Formats Locale into the proper HTTP GET URL, and performs a HTTP request.
    * Throws an [Exception] if [Locale] doesn't have the appropriate values, or

@@ -2,6 +2,7 @@ part of moire;
 
 /** Container for all logic for the application. */
 class Controller{
+  
   /** Given a [locale], a [metric], and a [period], return a Map containing the value of the metric. */ 
   // TODO: create a getMetricForMonth method that does this and call it from a getMetricsForPeriod
   // method that iterates over a Duration/Period.
@@ -11,41 +12,31 @@ class Controller{
     print(location);
     var month = period.startDate.month;
     var year = period.startDate.year;
-
-    String url = "$kMetricsAPIUrl/metric/$type?year=$year&month=$month&locale=$location"; 
-    Completer completer = new Completer();
-    
-    loadData(completer,url);
-    
-    return completer.future;
+    return _loadData("metric/$type?year=$year&month=$month&locale=$location");
   }
   
-  
-  Completer loadData(Completer completer, String url) {
-    HttpRequest.getString(url).then((response) {
+  Future<Map> _loadData(String api_call) {
+    Completer completer = new Completer();
+    HttpRequest.getString("$kMetricsAPIUrl/" + api_call).then((response) {
       Map result = parse(response);
       if (result.containsKey("error")) {
         completer.completeError(result["error"]);
       } else {
         completer.complete(result);
-        if (result.containsKey("metric") && result.containsKey("value") && result.containsKey("units")) {
-          print('Your location ${location} has a ${result["metric"]} of ${result["value"]} in ${result["units"]}');
-          completer.complete(result);
-        } else {
-          completer.completeError("Malformed result: $result");
-        }
       }
     })
     .catchError((e) {
         // Invoked when the future is completed with an error
        print('le shit hit le fan ${e}');
     });
+    return completer.future;
   }
   
   /** Returns a list of metrics during a certain period. */
   List getMetrics(Locale location, Metric metric, Period period) {
   //TODO: Based on Location and Period, iterate over months between startDate and endDate and add values to list
     List metrics;
+    // TODO: note the below loop won't work if the years are different.
   //  for(i=Period.startMonth.month; i<Period.endMonth.month; i++)
   //    metrics[i] = this.getMetric(Location, Metric, Period);
     return metrics;
