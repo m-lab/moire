@@ -1,7 +1,7 @@
 part of moire_test;
 
 void testMetric() {
-  group('metric ctor', () {
+  group('Metric operations', () {
     test("Metric constructor", () {
       Metric item = new Metric('Minimum RTT', 'min_rtt', 'RoundtripTime', "NDT");
     });
@@ -19,5 +19,20 @@ void testMetric() {
     test("getMetricsForPeriod", () {
       expect(false, "Not yet implemented");
     });
+  });
+  
+  group('List operations',(){  
+    test("getAverage", () {
+      Controller c = new Controller();
+      List<num> metrics = [28,10,16,4];
+      expect(c.getAverage(metrics), equals(14.5)); 
+    });
+    
+    test("getChange", () {
+      Controller c = new Controller();
+      List<num> metrics = [28,10,16,4];
+      expect(c.getChange(metrics), equals(-600.0)); 
+    });
+    
   });
 }

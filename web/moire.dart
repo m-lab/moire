@@ -8,7 +8,6 @@ import 'package:js/js.dart' as js;
 
 part 'view.dart';
 part 'controller.dart';
-part 'period.dart';
 part 'metric.dart';
 part 'locale.dart';
 

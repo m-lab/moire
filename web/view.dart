@@ -35,7 +35,7 @@ class View{
   void searchInput() {
     var search = query('#search-input');
     search.onChange.listen((Event e) {
-      var newLocale = e.newValue;
+      //var newLocale = e.newValue;
       print('new locale $newLocale');
     });
   }
@@ -43,7 +43,7 @@ class View{
   void dateInput() {
     var date = query('#date-input');
     date.onChange.listen((Event e) {
-      var newDate = e.newValue;
+      var newDate = 
       print("new date $newDate");
     });
   }

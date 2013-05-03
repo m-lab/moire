@@ -86,7 +86,7 @@ class Controller{
     if (l.isEmpty)
       return 0.0;
     double change = ((l.last - l.first) / l.last)*100;
-    print('Your change is ${change.toStringAsFixed(1)} %');
+    print('Your change is ${change} or (${change.toStringAsFixed(1)} %)');
     return change;
   }
 }
