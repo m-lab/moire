@@ -1,58 +1,53 @@
 part of moire;
 
 class View{
-  
+
   void showHome(String path) {
-    print('We are at index ${path}'); 
+    print('We are at index ${path}');
     this.generateGetMetrics();
     this.generateHomeStatic();
   }
-  
+
   void showExplore(String path) {
     print('We are at explore: ${path}');
         // show article page with loading indicator
     // load article from server, then render article
   }
-  
+
   void showRankings(String path) {
     print('We are at rankings: ${path}');
         // show article page with loading indicator
     // load article from server, then render article
   }
-  
+
   void showMethods(String path) {
     print('We are at methods: ${path}');
         // show article page with loading indicator
     // load article from server, then render article
   }
-  
+
   void showContacts(String path) {
     print('We are at contact: ${path}');
         // show article page with loading indicator
     // load article from server, then render article
   }
-  void searchInput(){
-    search = query('#search-input');
-    search.onChange.listen(updateDate);
+
+  void searchInput() {
+    var search = query('#search-input');
+    search.onChange.listen((Event e) {
+      var newLocale = e.newValue;
+      print('new locale $newLocale');
+    });
   }
-  
-  void updateLocale(Event e){
-    var newLocale = search.value;
-    print('we have a lcoation');
-    //TODO: call the controller to set a new locale
+
+  void dateInput() {
+    var date = query('#date-input');
+    date.onChange.listen((Event e) {
+      var newDate = e.newValue;
+      print("new date $newDate");
+    });
   }
-  
-  void dateInput(){
-    data = query('#date-input');
-    date.onChange.listen(updateDate);
-  }
-  
-  void updateDate(Event e){
-    var newDate = date.value;
-    print('we have a date');
-    //TODO: call the controller to set a new date
-  }
-  
+
   //Generates geMetrics section on the homepage
   void generateGetMetrics() {
     var metricunit = query("#metric-unit");
@@ -60,14 +55,14 @@ class View{
     var paragraph = new Element.html("<p>Find metrics for a country with an ugly id (for example 250)</p>");
     metricunit.children.add(title);
     metricunit.children.add(paragraph);
-    
+
     InputElement metricInput = new Element.tag("input");
     metricInput.id = "metric-item";
     metricInput.placeholder = "What art thou country number?";
     metricInput.type = "text";
     metricunit.children.add(metricInput);
-  
-    
+
+
     ButtonElement searchButton = new Element.tag("button");
     searchButton.id = "btn-search";
     searchButton.text = "Search";
@@ -75,17 +70,17 @@ class View{
     //searchButton.onClick.listen((e) => getMetricResponse(metricInput.value));
     metricunit.children.add(searchButton);
   }
-  
+
   void showMenu() {
     var navbar = new DivElement();
       navbar.$dom_className = 'navbar-inner';
-    
+
     var container = new DivElement();
     navbar.$dom_className = 'container';
-    
+
     var list = new UListElement();
     list.$dom_className = 'nav';
-    
+
     var explore = new LIElement();
     explore.text = "Explore";
     var rankings = new LIElement();
@@ -97,7 +92,7 @@ class View{
     var contact = new LIElement();
     explore.text = "Contact";
   }
-  
+
   void generateMasthead() {
     var masthead = query("#masthead");
     var title = new Element.html("<h3>Open Internet Report</h3>");
@@ -114,14 +109,14 @@ class View{
               </ul>
             </div>
           </div>""");
-    
+
     masthead.children.add(title);
     masthead.children.add(menu);
     }
   //Generates static text section on the homepage
   void generateHomeStatic(){
     var homestatic = query("#home-static");
-    
+
     var download = new Element.html("""
         <div class="span4">
         <h2>Get the report</h2>
@@ -129,7 +124,7 @@ class View{
         <p><a class="btn" href="#">PDF</a><a class="btn" href="#">ePub</a></p>
         </div>
     """);
-    
+
     var countries = new Element.html("""
         <div class="span4">
         <h2>Countries we cover</h2>
@@ -137,7 +132,7 @@ class View{
         <p><a class="btn" href="#">Learn more&raquo;</a></p>
         </div>
     """);
-    
+
     var explenation = new Element.html("""
         <div class="span4">
         <h2>Fair &amp; Honest measurement</h2>
@@ -145,12 +140,12 @@ class View{
         <p><a class="btn" href="#">Learn more</a></p>
         </div>
     """);
-    
+
     homestatic.children.add(download);
     homestatic.children.add(countries);
     homestatic.children.add(explenation);
   }
- 
+
 }
 
 class Chart extends View{
@@ -159,10 +154,10 @@ class Chart extends View{
   var legend;
   int width;
   int height;
-  
+
   Chart(this.title,this.type,this.legend,this.width,this.height);
-  
-  //Draws graph using the Vizualization API. 
+
+  //Draws graph using the Vizualization API.
   drawGraph(){
     js.context.google.load('visualization', '1', js.map(
         {
@@ -170,16 +165,16 @@ class Chart extends View{
           'callback': new js.Callback.once(this.buildGraph)
         }));
   }
-  
-  //Builds graph using the Vizualization API. 
+
+  //Builds graph using the Vizualization API.
   //TODO: check getter error in js.context.google, because it seems to work
-  //TODO: pass data from other methods to build the graph. 
+  //TODO: pass data from other methods to build the graph.
   void buildGraph() {
     var gviz = js.context.google.visualization;
-    
+
     // Create and populate the data table.
     //TODO: get some real data.
-    
+
     var listData = [
                     ['Month', 'UL'],
                     ['JAN',   1],
@@ -200,7 +195,7 @@ class Chart extends View{
     var options = js.map({
       'curveType': "function",
       'title': '${this.title}',
-      'width': '${this.width}', 
+      'width': '${this.width}',
       'height': '${this.height}',
     });
 

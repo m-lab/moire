@@ -11,15 +11,15 @@ main() {
   var n = new Locale(continent: 'Europe', country: '826', region: 'eng', city: 'london');
   var m = new Metric('Maximum Upload Throughput','upload_throughput_max','Ms','Some nice RTT','NDT',0.0,'01-12-2012');
   var p = new Period('20120112','20120112');
-  c.getMetric(l,m,p).catchError((e) {
-    print("getMetric ERROR: $e");
-  });
-  c.getMetric(n,m,p).catchError((e) {
-    print("getMetric ERROR: $e");
-  });
+  c.getMetric(l,m,p)
+      .then((double v) => print("got metric $v"))
+      .catchError((e) => print("getMetric ERROR: $e"));
+  c.getMetric(n,m,p)
+      .then((double v) => print("got metric $v"))
+      .catchError((e) => print("getMetric ERROR: $e"));
 
-  p.updateStartDate('20130112');
-  p.updateEndDate('20140112');
+  p.setStartDate('20130112');
+  p.setEndDate('20140112');
   print(p.startDate);
   print(p.endDate);
   b.drawGraph();

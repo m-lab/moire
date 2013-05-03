@@ -13,4 +13,3 @@ part 'metric.dart';
 part 'locale.dart';
 
 const String kMetricsAPIUrl = "http://mlab-metrics-api-server.appspot.com/api";
-const List<String> kSupportedMetrics = ['min_rtt','upload_throughput_max','download_througput_max'];
