@@ -17,7 +17,7 @@ main() {
   c.getMetric(n,m,p).catchError((e) {
     print("getMetric ERROR: $e");
   });
-  v.generateMasthead();
+
   p.updateStartDate('20130112');
   p.updateEndDate('20140112');
   print(p.startDate);
@@ -32,6 +32,7 @@ main() {
   l.getChildren().catchError((e) {
     print("getChildren ERROR: $e");
   });
+  v.generateMasthead();
 
 
   //Handles url's

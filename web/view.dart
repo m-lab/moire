@@ -55,12 +55,23 @@ class View{
     metricunit.children.add(searchButton);
   }
   
+  void showMenu() {
+    var navbar = new DivElement();
+      navbar.$dom_className = 'navbar-inner';
+    
+    var container = new DivElement();
+    navbar.$dom_className = 'container';
+    
+    var list = new UListElement();
+    list.$dom_className = 'nav';
+    
+    var explore = new LIElement();
+    explore.text = "Explore";
+  }
   
   void generateMasthead() {
     var masthead = query("#masthead");
-    
     var title = new Element.html("<h3>Open Internet Report</h3>");
-    
     var menu = new Element.html("""<div class="navbar">
           <div class="navbar-inner">
             <div class="container">
@@ -77,7 +88,6 @@ class View{
     
     masthead.children.add(title);
     masthead.children.add(menu);
-    
     }
   //Generates static text section on the homepage
   void generateHomeStatic(){

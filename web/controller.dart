@@ -22,12 +22,13 @@ class Controller{
       if (result.containsKey("error")) {
         completer.completeError(result["error"]);
       } else {
+        print('Your metric ${result["units"]} is ${result["value"]}');
         completer.complete(result);
       }
     })
     .catchError((e) {
         // Invoked when the future is completed with an error
-       print('le shit hit le fan ${e}');
+       print('Completer Error: ${e}');
     });
     return completer.future;
   }

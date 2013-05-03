@@ -67,6 +67,7 @@ class Locale {
       if (result.containsKey("error")) {
         completer.completeError(result["error"]);
       } else {
+        print('Your parent is ${result["parent"]}');
         completer.complete(result["parent"]);
       }
     })
