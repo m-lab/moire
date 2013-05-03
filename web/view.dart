@@ -31,6 +31,27 @@ class View{
         // show article page with loading indicator
     // load article from server, then render article
   }
+  void searchInput(){
+    search = query('#search-input');
+    search.onChange.listen(updateDate);
+  }
+  
+  void updateLocale(Event e){
+    var newLocale = search.value;
+    print('we have a lcoation');
+    //TODO: call the controller to set a new locale
+  }
+  
+  void dateInput(){
+    data = query('#date-input');
+    date.onChange.listen(updateDate);
+  }
+  
+  void updateDate(Event e){
+    var newDate = date.value;
+    print('we have a date');
+    //TODO: call the controller to set a new date
+  }
   
   //Generates geMetrics section on the homepage
   void generateGetMetrics() {
@@ -67,6 +88,14 @@ class View{
     
     var explore = new LIElement();
     explore.text = "Explore";
+    var rankings = new LIElement();
+    explore.text = "Rankings";
+    var you = new LIElement();
+    explore.text = "Your city";
+    var methods = new LIElement();
+    explore.text = "Methods";
+    var contact = new LIElement();
+    explore.text = "Contact";
   }
   
   void generateMasthead() {
