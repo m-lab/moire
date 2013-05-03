@@ -10,18 +10,16 @@ main() {
   var l = new Locale(continent: 'Europe', country: 'GB', region: 'H9', city: 'London');
   var n = new Locale(continent: 'Europe', country: '826', region: 'eng', city: 'london');
   var m = new Metric('Maximum Upload Throughput','upload_throughput_max','Ms','Some nice RTT','NDT',0.0,'01-12-2012');
-  var p = new Period('20120112','20120112');
-  c.getMetric(l,m,p).catchError((e) {
+  c.startDate = new DateTime(2012,01,01);
+  c.endDate = new DateTime(2012,12,01);
+  print('Considering metrics from ${c.startDate} to ${c.endDate} a total of ${c.endDate.difference(c.startDate).inDays} days');
+  c.getMetric(l,m,c.startDate).catchError((e) {
     print("getMetric ERROR: $e");
   });
-  c.getMetric(n,m,p).catchError((e) {
+  c.getMetric(n,m,c.startDate).catchError((e) {
     print("getMetric ERROR: $e");
   });
-
-  p.updateStartDate('20130112');
-  p.updateEndDate('20140112');
-  print(p.startDate);
-  print(p.endDate);
+  c.getMetricsForPeriod(n, m);
   b.drawGraph();
   List metrics = [180,18,23];
   c.getAverage(metrics);

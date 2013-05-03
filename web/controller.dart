@@ -2,16 +2,19 @@ part of moire;
 
 /** Container for all logic for the application. */
 class Controller{
+  DateTime startDate;
+  DateTime endDate;
+ 
   
   /** Given a [locale], a [metric], and a [period], return a Map containing the value of the metric. */ 
   // TODO: create a getMetricForMonth method that does this and call it from a getMetricsForPeriod
   // method that iterates over a Duration/Period.
-  Future<Map> getMetric(Locale locale, Metric metric, Period period) {
+  Future<Map> getMetric(Locale locale, Metric metric, DateTime date) {
     String type = metric.type;
     String location = locale.toString();
     print(location);
-    var month = period.startDate.month;
-    var year = period.startDate.year;
+    var month = date.month;
+    var year = date.year;
     return _loadData("metric/$type?year=$year&month=$month&locale=$location");
   }
   
@@ -31,16 +34,30 @@ class Controller{
        print('Completer Error: ${e}');
     });
     return completer.future;
+    //TODO: return an object instead of a map
   }
   
-  /** Returns a list of metrics during a certain period. */
-  List getMetrics(Locale location, Metric metric, Period period) {
-  //TODO: Based on Location and Period, iterate over months between startDate and endDate and add values to list
-    List metrics;
-    // TODO: note the below loop won't work if the years are different.
-  //  for(i=Period.startMonth.month; i<Period.endMonth.month; i++)
-  //    metrics[i] = this.getMetric(Location, Metric, Period);
-    return metrics;
+  /** Returns a list of metrics for a certain period. */
+  Future<List<Map>> getMetricsForPeriod(Locale location, Metric metric) {
+    Completer completer = new Completer();
+    
+    int month = startDate.month;
+    int year = startDate.year;
+    
+    List getMetricFns = new List();
+    
+    while(month <= endDate.month && year <= endDate.year){
+      getMetricFns.add(getMetric(location,metric,new DateTime.utc(year,month)));
+      
+      if (++month == 13) {
+        ++year;
+        month = 1;
+      }
+    }
+    
+    Future.wait(getMetricFns).then((List<Map> responses) => completer.complete(responses));
+
+    return completer.future;
   }
 
 
