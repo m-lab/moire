@@ -4,21 +4,15 @@ part of moire;
 class Controller{
   DateTime startDate;
   DateTime endDate;
- 
-  
- 
-  /** Given a [locale], a [metric], and a [period], return a Map containing the value of the metric. */
+  Locale locale;
+  Metric metric;
+
+  /** Return the value of a metric for a given [date]. */
   // TODO: create a getMetricForMonth method that does this and call it from a getMetricsForPeriod
   // method that iterates over a Duration/Period.
-  Future<double> getMetric(Locale locale, Metric metric, Period period) {
-    String type = metric.type;
-    String location = locale.toString();
-    print(location);
-    var month = period.startDate.month;
-    var year = period.startDate.year;
-
+  Future<double> getMetric(DateTime date) {
     Completer completer = new Completer();
-    _loadData("metric/$type?year=$year&month=$month&locale=$location").then((Map m) {
+    _loadData("metric/${metric.type}?year=${date.year}&month=${date.month}&locale=${locale.toString()}").then((Map m) {
         if (!m.containsKey("value"))
           completer.completeError("Unabled to get metric");
         else
@@ -44,26 +38,26 @@ class Controller{
     //TODO: return an object instead of a map
   }
 
-  
-  /** Returns a list of metrics for a certain period. */
-  Future<List<Map>> getMetricsForPeriod(Locale location, Metric metric) {
+
+  /** Returns a list of metric values. */
+  Future<List<double>> getMetricsForPeriod() {
     Completer completer = new Completer();
-    
+
     int month = startDate.month;
     int year = startDate.year;
-    
+
     List getMetricFns = new List();
-    
+
     while(month <= endDate.month && year <= endDate.year){
-      getMetricFns.add(getMetric(location,metric,new DateTime.utc(year,month)));
-      
+      getMetricFns.add(getMetric(new DateTime.utc(year,month)));
+
       if (++month == 13) {
         ++year;
         month = 1;
       }
     }
-    
-    Future.wait(getMetricFns).then((List<Map> responses) => completer.complete(responses));
+
+    Future.wait(getMetricFns).then((List<double> responses) => completer.complete(responses));
 
     return completer.future;
   }
