@@ -8,13 +8,12 @@ class Controller{
   Metric metric;
 
   /** Return the value of a metric for a given [date]. */
-  // TODO: create a getMetricForMonth method that does this and call it from a getMetricsForPeriod
-  // method that iterates over a Duration/Period.
+  // TODO: return unit alongside value.
   Future<double> getMetric(DateTime date) {
     Completer completer = new Completer();
     _loadData("metric/${metric.type}?year=${date.year}&month=${date.month}&locale=${locale.toString()}").then((Map m) {
         if (!m.containsKey("value"))
-          completer.completeError("Unabled to get metric");
+          completer.completeError("Unable to get metric");
         else
           completer.complete(m["value"]);
     })
@@ -46,18 +45,28 @@ class Controller{
     int month = startDate.month;
     int year = startDate.year;
 
-    List getMetricFns = new List();
-
-    while(month <= endDate.month && year <= endDate.year){
-      getMetricFns.add(getMetric(new DateTime.utc(year,month)));
+    Map<DateTime, double> results = new Map<DateTime, double>();
+    while(year < endDate.year || month <= endDate.month) {
+      DateTime now = new DateTime(year, month);
+      results[now] = null;
+      print('getting metric for ${now.toString()}');
+      getMetric(now).then((double v) {
+        print('  got metric for ${now.toString()}');
+        results[now] = v;
+        if (!results.containsValue(null)) {
+          List<double> values = new List<double>();
+          results.keys.sort().forEach((k) {
+            values.add(results[k]);
+          });
+          completer.complete(values);
+        }
+      });
 
       if (++month == 13) {
         ++year;
         month = 1;
       }
     }
-
-    Future.wait(getMetricFns).then((List<double> responses) => completer.complete(responses));
 
     return completer.future;
   }
