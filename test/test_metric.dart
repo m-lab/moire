@@ -3,7 +3,7 @@ part of moire_test;
 void testMetric() {
   group('Metrics', () {
     test("Metric constructor", () {
-      Metric item = new Metric('Minimum RTT', 'rtt_min', 'RoundtripTime', "NDT");
+      Metric item = new Metric('Minimum RTT', 'min_rtt', 'RoundtripTime', "NDT");
     });
 
     test("Get a metric", () {

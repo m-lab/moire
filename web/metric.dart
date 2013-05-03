@@ -17,6 +17,6 @@ class Metric {
   String test;
 
   Metric(this.name, this.type, this.description, this.test) {
-    //assert(kSupportedMetrics.contains(type));
+    assert(kSupportedMetrics.contains(type));
   }
 }
