@@ -18,4 +18,3 @@ final Controller controller = new Controller();
 Locale location = new Locale(continent: 'Europe', country: 'GB', region: 'H9', city: 'London');
 
 const String kMetricsAPIUrl = "http://mlab-metrics-api-server.appspot.com/api";
-

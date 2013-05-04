@@ -67,14 +67,13 @@ class Locale {
    */
   //TODO: error handling for empty Http response, no response from server, malformed location string
 
-  Future<Map> getParent() {
+  Future<String> getParent() {
     String location = this.toString();
     print(location);
     String url = "$kMetricsAPIUrl/locale/$location";
 
     Completer completer = new Completer();
     HttpRequest.getString(url).then((response) {
-
       print(response);
       Map result = parse(response);
       if (result.containsKey("error")) {
@@ -94,7 +93,7 @@ class Locale {
    * Throws an [Exception] if [Locale] doesn't have the appropriate values, or
    * Metrics API server cannot be reached.Callers of this can use 'getChildren().then((List l) { ... })
    */
-  Future<Map> getChildren() {
+  Future<List<String>> getChildren() {
     String location = this.toString();
     String url = "$kMetricsAPIUrl/locale/$location";
 
