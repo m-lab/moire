@@ -5,7 +5,20 @@ class Locale {
   final String continent;
   final String country;
   final String region;
+  @observable
   final String city;
+  
+  get fullLocation{
+    String location = '';
+    if(this.country != '')
+      location += '${this.country}';
+    if(this.region != '')
+      location += ', ${this.region}';
+    if(this.city != '')
+    location += ', ${this.city}';
+  return location;
+  }
+  //TODO: build a method that retuns location as a formated string. 
 
   /** Constructs a Locale that is nearest to a given [latitude] and [longitude]. */
   static Future<Locale> fromLatitudeAndLongitude(double latitude, double longitude) {

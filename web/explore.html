@@ -7,75 +7,9 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<!-- Le styles -->
 <link href="css/bootstrap.css" rel="stylesheet">
-<style id=style-home type="text/css">
-body {
-	padding-top: 20px;
-	padding-bottom: 60px;
-}
-/* Custom container */
-.container {
-	margin: 0 auto;
-	max-width: 1000px;
-}
-.container > hr {
-	margin: 60px 0;
-}
-/* Main marketing message and explore button */
-.jumbotron {
-	margin: 80px 0;
-	text-align: center;
-}
-.jumbotron h1 {
-	font-size: 100px;
-	line-height: 1;
-}
-.jumbotron .lead {
-	font-size: 24px;
-	line-height: 1.25;
-}
-.jumbotron .btn {
-	font-size: 21px;
-	padding: 14px 24px;
-}
-/* Subsections */
-.marketing {
-	margin: 60px 0;
-}
-.marketing p + h4 {
-	margin-top: 28px;
-}
-/* Customize the navbar links to be fill the entire space of the .navbar */
-.navbar .navbar-inner {
-	padding: 0;
-}
-.navbar .nav {
-	margin: 0;
-	display: table;
-	width: 100%;
-}
-.navbar .nav li {
-	display: table-cell;
-	width: 1%;
-	float: none;
-}
-.navbar .nav li a {
-	font-weight: bold;
-	text-align: center;
-	border-left: 1px solid rgba(255,255,255,.75);
-	border-right: 1px solid rgba(0,0,0,.1);
-}
-.navbar .nav li:first-child a {
-	border-left: 0;
-	border-radius: 3px 0 0 3px;
-}
-.navbar .nav li:last-child a {
-	border-right: 0;
-	border-radius: 0 3px 3px 0;
-}
-</style>
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/moire.css" rel="stylesheet">
 
 <body>
 <div id="page" class="container">
@@ -85,9 +19,9 @@ body {
       <div class="navbar-inner">
         <div class="container">
           <ul class="nav">
-            <li><a href="#">Home</a></li>
-            <li class="active"><a href="#">Explore</a></li>
-            <li><a href="#">Rankings</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li class="active"><a href="explore.html">Explore</a></li>
+            <li><a href="ranking.html">Rankings</a></li>
             <li><a href="#">Your City</a></li>
             <li><a href="#">Methods</a></li>
             <li><a href="#">Contact</a></li>
@@ -106,24 +40,33 @@ body {
         </div>
       </form>
       <ul class="breadcrumb">
-        <li><a href="#">World</a> <span class="divider">/</span></li>
-        <li><a href="#">Europe</a> <span class="divider">/</span></li>
-        <li class="active">Netherlands</li>
+        <li><a href="#">World</a>
+        <template instantiate="if location.country != ''">
+        <li><span class="divider">/</span> <a href="#">{{location.country}}</a></li>
+        </template>
+        <template instantiate="if location.region != ''">
+        <li><span class="divider">/</span> <a href="#">{{location.region}}</a></li>
+        </template>
+        <template instantiate="if location.city != ''">
+        <li><span class="divider">/</span> <a href="#">{{location.city}}</a></li>
+        </template>
       </ul>
     </div>
-    <div align="right" class="span4 offset4">
-      <div class="btn-group"> <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Jan 2010 - Jan 2011 <span class="caret"></span> </a>
-        <ul class="dropdown-menu">
-          <!-- dropdown menu links -->
-        </ul>
+    <div class="span4 offset4">
+      <div class="controls controls-row">
+        <input type="number" class="span2" min="1" bind-value="controller.startMonth">
+        <input type="number" class="span3" min="1" bind-value="controller.startYear"> 
+        <input type="number" class="span2" min="1" bind-value="controller.endMonth">
+        <input type="number" class="span3" min="1" bind-value="controller.endYear">
       </div>
+
     </div>
   </div>
   <div id="content" class="row-fluid">
     <div id="left-controls" class="span3">
       <h4>
-      Netherlands
-      </H3>
+      {{location.city}}
+      </h4>
       <h6>Download Speed</h6>
       <ul class="inline">
         <li><i class="icon-arrow-up"></i></li>
@@ -144,18 +87,17 @@ body {
           <p>mbps</p>
         </li>
       </ul>
-      <h4>Go Deeper</h4>
-      <p>Explore some of the regions in:</p>
+
     </div>
     <div id="main-content" class="span9">
       <div class="row">
         <h4>Speed</H4>
-        <p>These metrics are related to the speed that users are achieving on their connections. We conclude this based on ${nrOfTests} individual test results between ${startDate} and ${endDate}. </p>
+        <p>These metrics are related to the speed that users are achieving on their connections. We conclude this based on ${nrOfTests} individual test results between {{controller.startDate.month}}-{{controller.startDate.year}} and {{controller.endDate.month}}-{{controller.endDate.year}}. </p>
       </div>
       <div class="row">
         <div class="span6">
           <h5>Average Download Speed</H5>
-          <p>Average download speed is the median speed that users achieve on their connection. The average download speed in ${Location} was ${Metric.value} ${Metric.unit}. The year on year growth was ${Metric.getChange}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
+          <p>Average download speed is the median speed that users achieve on their connection. The average download speed in {{location.fullLocation}} was ${Metric.value} ${Metric.unit}. The year on year growth was ${Metric.getChange}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
           <p>
             <button class="btn btn-primary" type="button">Learn More</button>
           </p>
@@ -167,7 +109,7 @@ body {
       <div class="row">
         <div class="span6">
           <h5>Average Download Speed</H5>
-          <p>Average download speed is the median speed that users achieve on their connection. The average download speed in ${Location} was ${Metric.value} ${Metric.unit}. The year on year growth was ${Metric.getChange}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
+          <p>Average download speed is the median speed that users achieve on their connection. The average download speed in {{location.fullLocation}} was ${Metric.value} ${Metric.unit}. The year on year growth was ${Metric.getChange}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
           <p>
             <button class="btn btn-primary" type="button">Learn More</button>
           </p>
@@ -179,16 +121,13 @@ body {
     </div>
   </div>
 </div>
-<!-- /container --> 
 
-<!-- Le javascript
-							================================================== --> 
-<!-- Placed at the end of the document so the pages load faster --> 
-<script src="http://code.jquery.com/jquery.js"></script> 
-<script src="js/bootstrap.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script type="application/dart" src="main.dart"></script> 
-<script src="packages/browser/dart.js"></script> 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+   <!-- javascript -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="application/dart" src="main.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 </body>
 </html>

@@ -4,16 +4,14 @@ import 'package:route/client.dart';
 
 main() {
   //TODO: move to tests
-  var v = new View();
-  var b = new Chart('Some Title','none','LineChart',200,200);
-  Locale l = new Locale(continent: 'Europe', country: 'GB', region: 'H9', city: 'London');
-  b.drawGraph();
-  v.generateMasthead();
-
-
+  controller.startDate = new DateTime.utc(2012, 02, 01);
+  controller.endDate = new DateTime.now();
+  
+  print(location.fullLocation);
   //Handles url's
-  var router = new Router()
-      ..addHandler(root, v.showHome)
-      ..addHandler(localeUrl, v.showExplore)
-      ..listen();
+  //TODO: fix handlers
+  //var router = new Router()
+  //    ..addHandler(root, )
+  //    ..addHandler(localeUrl, v.showExplore())
+  //    ..listen();
 }

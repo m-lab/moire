@@ -6,7 +6,36 @@ class Controller{
   DateTime endDate;
   Locale locale;
   Metric metric;
-
+  
+  String get startMonth {
+    return startDate.month.toString();
+  }
+  set startMonth(String value) {
+    startDate = new DateTime(startDate.year, int.parse(value));
+  }
+  
+  String get endMonth {
+    return endDate.month.toString();
+  }
+  set endMonth(String value) {
+    endDate = new DateTime(endDate.year, int.parse(value));
+  }
+  
+ 
+  String get startYear {
+    return startDate.year.toString();
+  }
+  set startYear(String value) {
+    startDate = new DateTime(int.parse(value),startDate.month);
+  }
+  
+  String get endYear {
+    return endDate.year.toString();
+  }
+  set endYear(String value) {
+    endDate = new DateTime(int.parse(value),endDate.month);
+  }
+  
   /** Return the value of a metric for a given [date]. */
   // TODO: create a getMetricForMonth method that does this and call it from a getMetricsForPeriod
   // method that iterates over a Duration/Period.

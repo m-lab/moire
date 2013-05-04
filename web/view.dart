@@ -2,55 +2,17 @@ part of moire;
 
 class View{
 
-  void showHome(String path) {
-    print('We are at index ${path}');
-    this.generateGetMetrics();
-    this.generateHomeStatic();
-  }
-
-  void showExplore(String path) {
-    print('We are at explore: ${path}');
+  void showExplore() {
+    print('We are at explore');
+   
         // show article page with loading indicator
     // load article from server, then render article
   }
 
-  void showRankings(String path) {
-    print('We are at rankings: ${path}');
-        // show article page with loading indicator
-    // load article from server, then render article
-  }
-
-  void showMethods(String path) {
-    print('We are at methods: ${path}');
-        // show article page with loading indicator
-    // load article from server, then render article
-  }
-
-  void showContacts(String path) {
-    print('We are at contact: ${path}');
-        // show article page with loading indicator
-    // load article from server, then render article
-  }
-
-  void searchInput() {
-    var search = query('#search-input');
-    search.onChange.listen((Event e) {
-      //var newLocale = e.newValue;
-      print('new locale $newLocale');
-    });
-  }
-
-  void dateInput() {
-    var date = query('#date-input');
-    date.onChange.listen((Event e) {
-      var newDate = 
-      print("new date $newDate");
-    });
-  }
 
   //Generates geMetrics section on the homepage
   void generateGetMetrics() {
-    var metricunit = query("#metric-unit");
+    var metricunit = query("#content");
     var title = new Element.html("<h1>Get all the metrics!</h1>");
     var paragraph = new Element.html("<p>Find metrics for a country with an ugly id (for example 250)</p>");
     metricunit.children.add(title);
@@ -71,28 +33,12 @@ class View{
     metricunit.children.add(searchButton);
   }
 
-  void showMenu() {
-    var navbar = new DivElement();
-      navbar.$dom_className = 'navbar-inner';
-
-    var container = new DivElement();
-    navbar.$dom_className = 'container';
-
-    var list = new UListElement();
-    list.$dom_className = 'nav';
-
-    var explore = new LIElement();
-    explore.text = "Explore";
-    var rankings = new LIElement();
-    explore.text = "Rankings";
-    var you = new LIElement();
-    explore.text = "Your city";
-    var methods = new LIElement();
-    explore.text = "Methods";
-    var contact = new LIElement();
-    explore.text = "Contact";
-  }
-
+  void generateStartDate() {
+    var masthead = query("#masthead");
+    var title = new Element.html("<h3>Current Date is set to {{c.startDate}}</h3>");
+    
+    masthead.children.add(title);
+    }  
   void generateMasthead() {
     var masthead = query("#masthead");
     var title = new Element.html("<h3>Open Internet Report</h3>");
@@ -113,6 +59,8 @@ class View{
     masthead.children.add(title);
     masthead.children.add(menu);
     }
+  
+ 
   //Generates static text section on the homepage
   void generateHomeStatic(){
     var homestatic = query("#home-static");
@@ -204,5 +152,22 @@ class Chart extends View{
         query('#visualization'));
     chart.draw(tableData, options);
   }
+}
+
+class Page{
+    void showMenu(){
+      //TODO: shows the menu
+    }
+    
+    void showNotification(){
+      //TODO: shows a notification
+    }
+}
+
+class Explore extends Page{
+  void showSpeedSection(){
+  //TODO: implement pages
+  }
+  
 }
 
