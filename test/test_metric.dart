@@ -23,7 +23,7 @@ void testMetric() {
       controller.endDate = new DateTime.utc(2012, 4);
       controller.getMetricsForPeriod()
           .then(expectAsync1((List<double> results) {
-              expect(results, [0.569035, 0.581648, 0.590309, 0.569035]);
+              expect(results, [0.561083, 0.563226, 0.569035, 0.581648, 0.590309, 0.588962]);
           }))
           .catchError(expectAsync1((String e) => expect(false, "Should not be reached: $e"), count:0));
     });

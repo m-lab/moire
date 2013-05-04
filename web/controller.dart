@@ -55,9 +55,9 @@ class Controller{
         results[now] = v;
         if (!results.containsValue(null)) {
           List<double> values = new List<double>();
-          results.keys.sort().forEach((k) {
-            values.add(results[k]);
-          });
+          List<DateTime> keys = results.keys.toList();
+          keys.sort((DateTime a, DateTime b) => a.compareTo(b));
+          keys.forEach((k) => values.add(results[k]));
           completer.complete(values);
         }
       });

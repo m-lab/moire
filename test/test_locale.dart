@@ -1,8 +1,8 @@
 part of moire_test;
 
-void testLocation() {
-  group('Location operations', () {
-    test("Location constructor", () {
+void testLocale() {
+  group('Locale operations', () {
+    test("Locale constructor", () {
       Locale item = new Locale(continent: 'Europe', country: 'GB', region: 'H9', city: 'London');
       expect(item, isNotNull);
     });

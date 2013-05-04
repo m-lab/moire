@@ -6,11 +6,11 @@ import 'package:unittest/html_enhanced_config.dart';
 import '../web/moire.dart';
 
 part 'test_metric.dart';
-part 'test_location.dart';
+part 'test_locale.dart';
 
 void main() {
   useHtmlEnhancedConfiguration();
 
   testMetric();
-  testLocation();
+  testLocale();
 }
