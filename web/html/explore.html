@@ -40,7 +40,7 @@
         </div>
       </form>
       <ul class="breadcrumb">
-        <li><a href="#">World</a></li>
+        <li><a href="#">World</a>
         <template instantiate="if location.city != ''">
         <li><span class="divider">/</span> <a href="#">{{location.country}}</a></li>
         </template>
@@ -92,12 +92,12 @@
     <div id="main-content" class="span9">
       <div class="row">
         <h4>Speed</H4>
-        <p>These metrics are related to the speed that users are achieving on their connections. We conclude this based on {{showMetric()}} individual test results between {{controller.startDate.month}}-{{controller.startDate.year}} and {{controller.endDate.month}}-{{controller.endDate.year}}. </p>
+        <p>These metrics are related to the speed that users are achieving on their connections. We conclude this based on ${nrOfTests} individual test results between {{controller.startDate.month}}-{{controller.startDate.year}} and {{controller.endDate.month}}-{{controller.endDate.year}}. </p>
       </div>
       <div class="row">
         <div class="span6">
           <h5>Average Download Speed</H5>
-          <p>Average download speed is the median speed that users achieve on their connection. The average download speed in {{location.fullLocation}} was ${Metric.value} ${Metric.unit}. The year on year growth was {{showMetricChange()}}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
+          <p>{{showMetricDefinition()}} The average download speed in {{location.fullLocation}} was ${Metric.value}. The year on year growth was ${Metric.getChange}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
           <p>
             <button class="btn btn-primary" type="button">Learn More</button>
           </p>

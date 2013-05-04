@@ -2,13 +2,6 @@ part of moire;
 
 class View{
 
-  void showExplore() {
-    print('We are at explore');
-   
-        // show article page with loading indicator
-    // load article from server, then render article
-  }
-
 
   //Generates geMetrics section on the homepage
   void generateGetMetrics() {
@@ -152,22 +145,5 @@ class Chart extends View{
         query('#visualization'));
     chart.draw(tableData, options);
   }
-}
-
-class Page{
-    void showMenu(){
-      //TODO: shows the menu
-    }
-    
-    void showNotification(){
-      //TODO: shows a notification
-    }
-}
-
-class Explore extends Page{
-  void showSpeedSection(){
-  //TODO: implement pages
-  }
-  
 }
 
