@@ -3,6 +3,9 @@ import 'urls.dart';
 import 'package:web_ui/web_ui.dart';
 import 'dart:async';
 
+final Controller controller = new Controller();
+final View view = new View(controller);
+
 main() {
   //TODO: move to tests
   controller.startDate = new DateTime.utc(2012, 02, 01);

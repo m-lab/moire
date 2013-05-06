@@ -11,6 +11,8 @@
 <link href="css/bootstrap-responsive.css" rel="stylesheet">
 <link href="css/moire.css" rel="stylesheet">
 
+<link rel="import" href="metric_div.html">
+
 <body>
 <div id="page" class="container">
   <div id="masthead" class="masthead">
@@ -89,45 +91,19 @@
       </ul>
 
     </div>
-    <div>
-      <element name='x-example2' constructor="Example2" extends='div'>
-            <template><span>one {{x}} tree</span></template>
-            <script type="application/dart">             
-              import 'package:web_ui/web_ui.dart'; 
-              
-              class Example2 extends WebComponent {
-              String x = 'two';
-              }
-              
-            </script>
-      </element>
-    </div>
-    <div is = 'x-example2'></div>
     <div id="main-content" class="span9">
       <div class="row">
         <h4>Speed</h4>
         <p>These jeuj metrics are related to the speed that users are achieving on their connections. We conclude this based on {{view.showTestCount()}} individual test results between {{controller.startDate.month}}-{{controller.startDate.year}} and {{controller.endDate.month}}-{{controller.endDate.year}}. </p>
       </div>
       <div class="row">
-        <div class="span6">
-          <h5>Average Download Speed</H5>
-          <p>Average download speed is the median speed that users achieve on their connection. The average download speed in {{controller.locale.fullLocation}} was {{view.showMetric("download_throughput_max")}} {{"TODO: units"}}. The year on year growth was {{view.showMetricChange("download_throughput_max")}}. Compared to last quarter the growth was ${Metric.getChange}. {{controller.locale.country}} rank ${getRank} in the world. </p>
-          <p>
-            <button class="btn btn-primary" type="button">Learn More</button>
-          </p>
-        </div>
+        <div is='x-metric-div' view="{{view}}" type="{{'download_throughput_max'}}" class="span6"></div>
         <div class="span4">
           <p>Graph </p>
         </div>
       </div>
       <div class="row">
-        <div class="span6">
-          <h5>Average Upload Speed</H5>
-          <p>Average upload speed is the median speed that users achieve on their connection. The average upload speed in {{controller.locale.fullLocation}} was {{view.showMetric("upload_throughput_max")}} {{"TODO: units"}}. The year on year growth was {{view.showMetricChange("upload_throughput_max")}}. Compared to last quarter the growth was ${Metric.getChange}. {{controller.locale.country}} rank ${getRank} in the world. </p>
-          <p>
-            <button class="btn btn-primary" type="button">Learn More</button>
-          </p>
-        </div>
+        <div is='x-metric-div' view="{{view}}" type="{{'upload_throughput_max'}}" class="span6"></div>
         <div class="span4">
           <p>Graph </p>
         </div>

@@ -1,33 +1,37 @@
 part of moire;
 
-class View{
+class View {
+  Controller controller;
+  
+  View(this.controller);
+  
   String showTestCount() {
     return "lots and lots";
   }
   
-  String showMetric(String metric_type) {
-    String metricStr = "<loading>";
+  Future<String> showMetric(String metric_type) {
+    Completer completer = new Completer();
     controller.getMetric(metric_type, controller.startDate).then((content) {
-      metricStr = content.toString();
+      completer.complete(content.toString());
     });
-    return metricStr;
+    return completer.future;
   }
   
-  String showMetricChange(String metric_type) {
-    String change = "<loading>";
+  Future<String> showMetricChange(String metric_type) {
+    Completer completer = new Completer();
     controller.getMetricsForPeriod(metric_type).then((content){
-      change = controller.getChange(content).toStringAsFixed(3);   
+      completer.complete(controller.getChange(content).toStringAsFixed(3));   
     });
-    return change;
+    return completer.future;
   }
   
-  String showMetricAverage(String metric_type) {
-    String average = "<loading>";
+  Future<String> showMetricAverage(String metric_type) {
+    Completer completer = new Completer();
     controller.getMetricValuesForPeriod(metric_type).then((List<double> content) {
-      average = controller.getAverage(content).toStringAsFixed(3);
+      completer.complete(controller.getAverage(content).toStringAsFixed(3));
     })
-    .catchError((e) => average = e);
-    return average;
+    .catchError((e) => completer.completeError(e));
+    return completer.future;
   }
   
   String showMetricName(String type) => kMetrics[type].name;

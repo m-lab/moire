@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+  <element name='x-metric-div' constructor="MetricDiv" extends='div'>
+      <template>
+          <h5>{{name}}</h5>
+          <p>{{name}} is {{description}}. The {{name}} in {{view.controller.locale.fullLocation}} was {{average}} {{"TODO: units"}}.
+          The year on year growth was {{change}}. Compared to last quarter the growth was ${Metric.getChange}.
+          {{view.controller.locale.country}} rank ${getRank} in the world. </p>
+          <p>
+            <button class="btn btn-primary" type="button">Learn More</button>
+          </p>
+      </template>
+      <script type="application/dart">
+      import 'package:web_ui/web_ui.dart';
+import 'moire.dart';
+
+class MetricDiv extends WebComponent {
+  View view;
+  String type;
+  
+  String get name => view.showMetricName(type);
+  String get description => view.showMetricDefinition(type);
+  
+  @observable
+  String average;
+  
+  @observable
+  String change;
+  
+  void inserted() {
+    view.showMetric(type).then((String s) => average = s);
+    view.showMetricChange(type).then((String s) => change = s);
+  }
+}  
+      </script>
+</element>

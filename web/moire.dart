@@ -12,9 +12,6 @@ part 'metric.dart';
 part 'locale.dart';
 
 
-final View view = new View();
-final Controller controller = new Controller();
-
 const String kMetricsAPIUrl = "http://mlab-metrics-api-server.appspot.com/api";
 
 

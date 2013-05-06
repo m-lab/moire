@@ -1,5 +1,7 @@
 part of moire_test;
 
+Controller controller = new Controller();
+
 void testMetric() {
   group('Metric operations', () {
     test("kMetrics", () {
@@ -14,11 +16,11 @@ void testMetric() {
           .catchError(expectAsync1((String e) => expect(false, 'Should not be reached: $e'), count:0));
     });
 
-    test("getMetricsForPeriod", () {
+    test("getMetricValuesForPeriod", () {
       controller.locale = new Locale(continent: "Europe", country: "826", region: "eng", city: "london");
       controller.startDate = new DateTime.utc(2011, 11);
       controller.endDate = new DateTime.utc(2012, 4);
-      controller.getMetricsForPeriod("upload_throughput_max")
+      controller.getMetricValuesForPeriod("upload_throughput_max")
           .then(expectAsync1((List<double> results) {
               expect(results, [0.561083, 0.563226, 0.569035, 0.581648, 0.590309, 0.588962]);
           }))
