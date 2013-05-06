@@ -36,6 +36,8 @@ class View {
   
   String showMetricName(String type) => kMetrics[type].name;
   String showMetricDefinition(String type) => kMetrics[type].description;
+
+  String showRank() => controller.getRank().toString();
 }
 
 class Chart extends View{

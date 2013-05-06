@@ -3,8 +3,9 @@
       <template>
           <h5>{{name}}</h5>
           <p>{{name}} is {{description}}. The {{name}} in {{view.controller.locale.fullLocation}} was {{average}}.
-          The year on year growth was {{change}}. Compared to last quarter the growth was ${Metric.getChange}.
-          {{view.controller.locale.country}} rank ${getRank} in the world. </p>
+          During the selected period, the change in this metric was {{change}}.
+          Compared to last quarter the growth was {{perQuarterChange}}, and year on year is {{perYearChange}}.
+          {{view.controller.locale.country}} ranks {{rank}} in the world. </p>
           <p>
             <button class="btn btn-primary" type="button">Learn More</button>
           </p>

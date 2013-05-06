@@ -137,6 +137,10 @@ class Controller{
     print('Your change is ${change} or (${change.toStringAsFixed(1)} %)');
     return new MetricValue(change, l.first.units);
   }
+  
+  int getRank() {
+    return 4;
+  }
 }
 
 /**
