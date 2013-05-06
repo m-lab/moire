@@ -7,31 +7,23 @@ class Controller{
   Locale locale;
   Metric metric;
   
-  String get startMonth {
-    return startDate.month.toString();
-  }
+  String get startMonth => startDate.month.toString();
   set startMonth(String value) {
     startDate = new DateTime(startDate.year, int.parse(value));
   }
   
-  String get endMonth {
-    return endDate.month.toString();
-  }
+  String get endMonth  => endDate.month.toString();
   set endMonth(String value) {
     endDate = new DateTime(endDate.year, int.parse(value));
   }
   
  
-  String get startYear {
-    return startDate.year.toString();
-  }
+  String get startYear  => startDate.year.toString();
   set startYear(String value) {
     startDate = new DateTime(int.parse(value),startDate.month);
   }
   
-  String get endYear {
-    return endDate.year.toString();
-  }
+  String get endYear  => endDate.year.toString();
   set endYear(String value) {
     endDate = new DateTime(int.parse(value),endDate.month);
   }

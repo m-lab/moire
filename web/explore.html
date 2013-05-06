@@ -41,14 +41,14 @@
       </form>
       <ul class="breadcrumb">
         <li><a href="#">World</a></li>
-        <template instantiate="if location.city != ''">
-        <li><span class="divider">/</span> <a href="#">{{location.country}}</a></li>
+        <template instantiate="if !controller.locale.city.isEmpty">
+        <li><span class="divider">/</span> <a href="#">{{controller.locale.country}}</a></li>
         </template>
-        <template instantiate="if location.region != ''">
-        <li><span class="divider">/</span> <a href="#">{{location.region}}</a></li>
+        <template instantiate="if !controller.locale.region.isEmpty">
+        <li><span class="divider">/</span> <a href="#">{{controller.locale.region}}</a></li>
         </template>
-        <template instantiate="if location.city != ''">
-        <li><span class="divider">/</span> <a href="#">{{location.city}}</a></li>
+        <template instantiate="if !controller.locale.city.isEmpty">
+        <li><span class="divider">/</span> <a href="#">{{controller.locale.city}}</a></li>
         </template>
       </ul>
     </div>
@@ -65,7 +65,7 @@
   <div id="content" class="row-fluid">
     <div id="left-controls" class="span3">
       <h4>
-      {{location.city}}
+      {{controller.locale.city}}
       </h4>
       <h6>Download Speed</h6>
       <ul class="inline">
@@ -97,7 +97,7 @@
       <div class="row">
         <div class="span6">
           <h5>Average Download Speed</H5>
-          <p>Average download speed is the median speed that users achieve on their connection. The average download speed in {{location.fullLocation}} was ${Metric.value} ${Metric.unit}. The year on year growth was {{showMetricChange()}}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
+          <p>Average download speed is the median speed that users achieve on their connection. The average download speed in {{controller.locale.fullLocation}} was ${Metric.value} ${Metric.unit}. The year on year growth was {{showMetricChange()}}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
           <p>
             <button class="btn btn-primary" type="button">Learn More</button>
           </p>
@@ -109,7 +109,7 @@
       <div class="row">
         <div class="span6">
           <h5>Average Download Speed</H5>
-          <p>Average download speed is the median speed that users achieve on their connection. The average download speed in {{location.fullLocation}} was ${Metric.value} ${Metric.unit}. The year on year growth was ${Metric.getChange}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
+          <p>Average download speed is the median speed that users achieve on their connection. The average download speed in {{controller.locale.fullLocation}} was ${Metric.value} ${Metric.unit}. The year on year growth was ${Metric.getChange}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
           <p>
             <button class="btn btn-primary" type="button">Learn More</button>
           </p>

@@ -1,6 +1,7 @@
 import 'moire.dart';
 import 'urls.dart';
 import 'package:web_ui/web_ui.dart';
+import 'package:web_ui/watcher.dart' as watchers;
 import 'dart:async';
 
 main() {
@@ -9,12 +10,7 @@ main() {
   controller.endDate = new DateTime.now();
   controller.metric = new Metric('Maximum Upload Throughput', 'upload_throughput_max', 'Average download speed is the median speed that users achieve on their connection.','NDT');
   controller.locale = new Locale(continent: 'Europe', country: '826', region: 'eng', city: 'london');
-  
-  print(location.fullLocation); 
-  
-  
 
-  
   //Handles url's
   //TODO: fix handlers
   //var router = new Router()
@@ -42,17 +38,14 @@ String showMetricChange() {
 }
 
 String showMetricAverage() {
-  Future future = controller.getMetricsForPeriod();
-  future.then((content){
-    controller.getAverage(content);   
-    });
-  return future.toString();
+  String average = "<loading>";
+  controller.getMetricsForPeriod().then((List<double> content) {
+    average = controller.getAverage(content).toStringAsFixed(3);
+    watchers.dispatch();
+  });
+  return average;
 }
 
-String showMetricName(){
-  return controller.metric.name.toString();
-}
+String showMetricName() => controller.metric.name;
 
-String showMetricDefinition(){
-  return controller.metric.definition.toString();
-}
+String showMetricDefinition() => controller.metric.description;

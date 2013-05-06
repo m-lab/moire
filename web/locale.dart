@@ -2,21 +2,26 @@ part of moire;
 
 /** Represents a location. */
 class Locale {
+  @observable
   final String continent;
+  
+  @observable
   final String country;
+  
+  @observable
   final String region;
+
   @observable
   final String city;
   
-  get fullLocation{
+  get fullLocation {
     String location = '';
-    if(this.country != '')
-      location += '${this.country}';
-    if(this.region != '')
+    location += '${this.country}';
+    if(!this.region.isEmpty)
       location += ', ${this.region}';
-    if(this.city != '')
-    location += ', ${this.city}';
-  return location;
+    if(this.city.isEmpty)
+      location += ', ${this.city}';
+    return location;
   }
   //TODO: build a method that retuns location as a formated string. 
 
