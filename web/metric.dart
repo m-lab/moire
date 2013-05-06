@@ -9,6 +9,8 @@ part of moire;
 class Metric {
 
   const List<String> kSupportedMetrics = const<String>["min_rtt",
+                                                        "average_download_speed",
+                                                        "average_upload_speed",
                                                         "upload_throughput_max",
                                                         "download_througput_max"];
   String name;
