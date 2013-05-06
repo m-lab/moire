@@ -59,7 +59,7 @@ class Controller{
 
 
   /** Returns a list of metric values. */
-  Future<List<double>> getMetricsForPeriod(String type) {
+  Future<Map<DateTime, double>> getMetricsForPeriod(String type) {
     Completer completer = new Completer();
 
     int month = startDate.month;
@@ -74,11 +74,7 @@ class Controller{
         print('  got metric for ${now.toString()}');
         results[now] = v;
         if (!results.containsValue(null)) {
-          List<double> values = new List<double>();
-          List<DateTime> keys = results.keys.toList();
-          keys.sort((DateTime a, DateTime b) => a.compareTo(b));
-          keys.forEach((k) => values.add(results[k]));
-          completer.complete(values);
+          completer.complete(results);
         }
       });
 
@@ -88,6 +84,18 @@ class Controller{
       }
     }
 
+    return completer.future;
+  }
+  
+  Future<List<double>> getMetricValuesForPeriod(String type) {
+    Completer completer = new Completer();
+    getMetricsForPeriod(type).then((Map<DateTime, double> results) {
+      List<double> values = new List<double>();
+      List<DateTime> keys = results.keys.toList();
+      keys.sort((DateTime a, DateTime b) => a.compareTo(b));
+      keys.forEach((k) => values.add(results[k]));
+      completer.complete(values);
+    });
     return completer.future;
   }
 

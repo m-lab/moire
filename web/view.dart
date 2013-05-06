@@ -9,7 +9,6 @@ class View{
     String metricStr = "<loading>";
     controller.getMetric(metric_type, controller.startDate).then((content) {
       metricStr = content.toString();
-//      watchers.dispatch();
     });
     return metricStr;
   }
@@ -24,9 +23,8 @@ class View{
   
   String showMetricAverage(String metric_type) {
     String average = "<loading>";
-    controller.getMetricsForPeriod(metric_type).then((List<double> content) {
+    controller.getMetricValuesForPeriod(metric_type).then((List<double> content) {
       average = controller.getAverage(content).toStringAsFixed(3);
-//      watchers.dispatch();
     })
     .catchError((e) => average = e);
     return average;
@@ -37,21 +35,20 @@ class View{
 }
 
 class Chart extends View{
-  var title;
-  var type;
+  String title;
+  String metric_type;
   var legend;
   int width;
   int height;
 
-  Chart(this.title,this.type,this.legend,this.width,this.height);
+  Chart(this.title,this.metric_type,this.legend,this.width,this.height);
 
   //Draws graph using the Vizualization API.
-  drawGraph(){
-    js.context.google.load('visualization', '1', js.map(
-        {
-          'packages': ['corechart'],
-          'callback': new js.Callback.once(this.buildGraph)
-        }));
+  void drawGraph() {
+    js.context.google.load('visualization', '1', js.map({
+        'packages': ['corechart'],
+        'callback': new js.Callback.once(this.buildGraph)
+    }));
   }
 
   //Builds graph using the Vizualization API.
@@ -62,35 +59,30 @@ class Chart extends View{
 
     // Create and populate the data table.
     //TODO: get some real data.
-
-    var listData = [
-                    ['Month', 'UL'],
-                    ['JAN',   1],
-                    ['FEB',   2],
-                    ['MAR',   4],
-                    ['APR',   8],
-                    ['MAY',   7],
-                    ['JUN',   7],
-                    ['JUL',   8],
-                    ];
-
-    var arrayData = js.array(listData);
-
-    var tableData = gviz.arrayToDataTable(arrayData);
-
-    // Sets options for chart.
-    //TODO: subclasses have other options
-    var options = js.map({
-      'curveType': "function",
-      'title': '${this.title}',
-      'width': '${this.width}',
-      'height': '${this.height}',
+    controller.getMetricsForPeriod(metric_type)
+      .then((Map<DateTime, double> results) {
+        List<List> listData = new List<List>();
+        
+        results.forEach((k, v) {
+          listData.add([k.toString(), v.toString()]);
+        });
+    
+        var arrayData = js.array(listData);
+        var tableData = gviz.arrayToDataTable(arrayData);
+    
+        // Sets options for chart.
+        //TODO: subclasses have other options
+        var options = js.map({
+          'curveType': "function",
+          'title': '${this.title}',
+          'width': '${this.width}',
+          'height': '${this.height}',
+        });
+    
+        // Create and draw the visualization.
+        var chart = new js.Proxy(gviz.LineChart, query('#visualization'));
+        chart.draw(tableData, options);
     });
-
-    // Create and draw the visualization.
-    var chart = new js.Proxy(gviz.LineChart,
-        query('#visualization'));
-    chart.draw(tableData, options);
   }
 }
 
