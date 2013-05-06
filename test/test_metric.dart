@@ -2,11 +2,11 @@ part of moire_test;
 
 void testMetric() {
   group('Metric operations', () {
-    test("Metric constructor", () {
-      Metric item = new Metric('Minimum RTT', 'min_rtt', 'RoundtripTime', "NDT");
-      expect(item, isNotNull);
+    test("kMetrics", () {
+      Metric m = kMetrics["min_rtt"];
+      expect(m.name, "Minimum RTT");
+      expect(m.test, "NDT");
     });
-
     test("getMetric", () {
       controller.locale = new Locale(continent: 'Europe', country: '826', region: 'eng', city: 'london');
       controller.getMetric("upload_throughput_max", new DateTime.utc(2012, 1))
