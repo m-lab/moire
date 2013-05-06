@@ -11,7 +11,7 @@ class View {
   
   Future<String> showMetric(String metric_type) {
     Completer completer = new Completer();
-    controller.getMetric(metric_type, controller.startDate).then((content) {
+    controller.getMetricValue(metric_type, controller.startDate).then((content) {
       completer.complete(content.toString());
     });
     return completer.future;
@@ -19,16 +19,16 @@ class View {
   
   Future<String> showMetricChange(String metric_type) {
     Completer completer = new Completer();
-    controller.getMetricsForPeriod(metric_type).then((content){
-      completer.complete(controller.getChange(content).toStringAsFixed(3));   
+    controller.getMetricValuesForPeriod(metric_type).then((List<MetricValue> content) {
+      completer.complete(controller.getChange(content).toString());   
     });
     return completer.future;
   }
   
   Future<String> showMetricAverage(String metric_type) {
     Completer completer = new Completer();
-    controller.getMetricValuesForPeriod(metric_type).then((List<double> content) {
-      completer.complete(controller.getAverage(content).toStringAsFixed(3));
+    controller.getMetricValuesForPeriod(metric_type).then((List<MetricValue> content) {
+      completer.complete(controller.getAverage(content).toString());
     })
     .catchError((e) => completer.completeError(e));
     return completer.future;

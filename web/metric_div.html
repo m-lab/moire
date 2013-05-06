@@ -2,13 +2,13 @@
   <element name='x-metric-div' constructor="MetricDiv" extends='div'>
       <template>
           <h5>{{name}}</h5>
-          <p>{{name}} is {{description}}. The {{name}} in {{view.controller.locale.fullLocation}} was {{average}} {{"TODO: units"}}.
+          <p>{{name}} is {{description}}. The {{name}} in {{view.controller.locale.fullLocation}} was {{average}}.
           The year on year growth was {{change}}. Compared to last quarter the growth was ${Metric.getChange}.
           {{view.controller.locale.country}} rank ${getRank} in the world. </p>
           <p>
             <button class="btn btn-primary" type="button">Learn More</button>
           </p>
       </template>
-      <script type="application/dart" src="metric_div.dart">  
+      <script type="application/dart" src="metric_div.dart">
       </script>
 </element>
