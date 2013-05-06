@@ -89,10 +89,24 @@
       </ul>
 
     </div>
+    <div>
+      <element name='x-example2' constructor="Example2" extends='div'>
+            <template><span>one {{x}} tree</span></template>
+            <script type="application/dart">             
+              import 'package:web_ui/web_ui.dart'; 
+              
+              class Example2 extends WebComponent {
+              String x = 'two';
+              }
+              
+            </script>
+      </element>
+    </div>
+    <div is = 'x-example2'></div>
     <div id="main-content" class="span9">
       <div class="row">
-        <h4>Speed</H4>
-        <p>These metrics are related to the speed that users are achieving on their connections. We conclude this based on {{view.showTestCount()}} individual test results between {{controller.startDate.month}}-{{controller.startDate.year}} and {{controller.endDate.month}}-{{controller.endDate.year}}. </p>
+        <h4>Speed</h4>
+        <p>These jeuj metrics are related to the speed that users are achieving on their connections. We conclude this based on {{view.showTestCount()}} individual test results between {{controller.startDate.month}}-{{controller.startDate.year}} and {{controller.endDate.month}}-{{controller.endDate.year}}. </p>
       </div>
       <div class="row">
         <div class="span6">
