@@ -9,7 +9,6 @@ main() {
   controller.endDate = new DateTime.now();
   // TODO: metric should not be a controller state variable as it can change through a page. It should be a parameter to each method call.
   // TODO: However there should be a list of metrics that can be chosen from, maybe a map keyed by metric name.
-  controller.metric = new Metric('Maximum Upload Throughput', 'upload_throughput_max', 'Average download speed is the median speed that users achieve on their connection.','NDT');
   controller.locale = new Locale(continent: 'Europe', country: '826', region: 'eng', city: 'london');
 
   //Handles url's

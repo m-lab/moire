@@ -5,7 +5,6 @@ class Controller{
   DateTime startDate;
   DateTime endDate;
   Locale locale;
-  Metric metric;
   
   String get startMonth => startDate.month.toString();
   set startMonth(String value) {
@@ -30,9 +29,9 @@ class Controller{
   
   /** Return the value of a metric for a given [date]. */
   // TODO: return unit alongside value.
-  Future<double> getMetric(DateTime date) {
+  Future<double> getMetric(String type, DateTime date) {
     Completer completer = new Completer();
-    _loadData("metric/${metric.type}?year=${date.year}&month=${date.month}&locale=${locale.toString()}").then((Map m) {
+    _loadData("metric/${type}?year=${date.year}&month=${date.month}&locale=${locale.toString()}").then((Map m) {
         if (!m.containsKey("value"))
           completer.completeError("Unable to get metric");
         else
@@ -60,7 +59,7 @@ class Controller{
 
 
   /** Returns a list of metric values. */
-  Future<List<double>> getMetricsForPeriod() {
+  Future<List<double>> getMetricsForPeriod(String type) {
     Completer completer = new Completer();
 
     int month = startDate.month;
@@ -71,7 +70,7 @@ class Controller{
       DateTime now = new DateTime(year, month);
       results[now] = null;
       print('getting metric for ${now.toString()}');
-      getMetric(now).then((double v) {
+      getMetric(type, now).then((double v) {
         print('  got metric for ${now.toString()}');
         results[now] = v;
         if (!results.containsValue(null)) {
@@ -91,7 +90,6 @@ class Controller{
 
     return completer.future;
   }
-
 
   /**
    * Returns the average of a list of metrics. A list of metrics

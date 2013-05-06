@@ -8,34 +8,33 @@ class View{
   
   String showMetric(String metric_type) {
     String metricStr = "<loading>";
-    controller.metric = new Metric('Metric name', metric_type, 'Metric description', 'Tool');
-    controller.getMetric(controller.startDate).then((content) {
+    controller.getMetric(metric_type, controller.startDate).then((content) {
       metricStr = content.toString();
-      watchers.dispatch();
+//      watchers.dispatch();
     });
     return metricStr;
   }
   
-  String showMetricChange() {
-    Future future = controller.getMetricsForPeriod();
-    future.then((content){
-      controller.getChange(content);   
-      });
-    return future.toString();
+  String showMetricChange(String metric_type) {
+    String change = "<loading>";
+    controller.getMetricsForPeriod(metric_type).then((content){
+      change = controller.getChange(content).toStringAsFixed(3);   
+    });
+    return change;
   }
   
-  String showMetricAverage() {
+  String showMetricAverage(String metric_type) {
     String average = "<loading>";
-    controller.getMetricsForPeriod().then((List<double> content) {
+    controller.getMetricsForPeriod(metric_type).then((List<double> content) {
       average = controller.getAverage(content).toStringAsFixed(3);
-      watchers.dispatch();
-    });
+//      watchers.dispatch();
+    })
+    .catchError((e) => average = e);
     return average;
   }
   
-  String showMetricName() => controller.metric.name;
-  
-  String showMetricDefinition() => controller.metric.description;
+  String showMetricName(String type) => kMetrics[type].name;
+  String showMetricDefinition(String type) => kMetrics[type].description;
 
   //Generates getMetrics section on the homepage
   void generateGetMetrics() {
@@ -65,10 +64,11 @@ class View{
     var title = new Element.html("<h3>Current Date is set to {{c.startDate}}</h3>");
     
     masthead.children.add(title);
-    }  
+  }
+
   void generateMasthead() {
     var masthead = query("#masthead");
-    var title = new Element.html("<h3>Open Internet Report</h3>");
+    var title = new HeadingElement.h3("Open Internet Report");
     var menu = new Element.html("""<div class="navbar">
           <div class="navbar-inner">
             <div class="container">
@@ -85,9 +85,8 @@ class View{
 
     masthead.children.add(title);
     masthead.children.add(menu);
-    }
+  }
   
- 
   //Generates static text section on the homepage
   void generateHomeStatic(){
     var homestatic = query("#home-static");
