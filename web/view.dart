@@ -2,8 +2,42 @@ part of moire;
 
 class View{
 
+  String showTestCount() {
+    return "lots and lots";
+  }
+  
+  String showMetric(String metric_type) {
+    String metricStr = "<loading>";
+    controller.metric = new Metric('Metric name', metric_type, 'Metric description', 'Tool');
+    controller.getMetric(controller.startDate).then((content) {
+      metricStr = content.toString();
+      watchers.dispatch();
+    });
+    return metricStr;
+  }
+  
+  String showMetricChange() {
+    Future future = controller.getMetricsForPeriod();
+    future.then((content){
+      controller.getChange(content);   
+      });
+    return future.toString();
+  }
+  
+  String showMetricAverage() {
+    String average = "<loading>";
+    controller.getMetricsForPeriod().then((List<double> content) {
+      average = controller.getAverage(content).toStringAsFixed(3);
+      watchers.dispatch();
+    });
+    return average;
+  }
+  
+  String showMetricName() => controller.metric.name;
+  
+  String showMetricDefinition() => controller.metric.description;
 
-  //Generates geMetrics section on the homepage
+  //Generates getMetrics section on the homepage
   void generateGetMetrics() {
     var metricunit = query("#content");
     var title = new Element.html("<h1>Get all the metrics!</h1>");

@@ -1,7 +1,6 @@
 import 'moire.dart';
 import 'urls.dart';
 import 'package:web_ui/web_ui.dart';
-import 'package:web_ui/watcher.dart' as watchers;
 import 'dart:async';
 
 main() {
@@ -22,38 +21,3 @@ main() {
 
   String avgDownloadSpeed = '258';
 }
-
-String showTestCount() {
-  return "lots and lots";
-}
-
-String showMetric(String metric_type) {
-  String metricStr = "<loading>";
-  controller.metric = new Metric('Metric name', metric_type, 'Metric description', 'Tool');
-  controller.getMetric(controller.startDate).then((content) {
-    metricStr = content.toString();
-    watchers.dispatch();
-  });
-  return metricStr;
-}
-
-String showMetricChange() {
-  Future future = controller.getMetricsForPeriod();
-  future.then((content){
-    controller.getChange(content);   
-    });
-  return future.toString();
-}
-
-String showMetricAverage() {
-  String average = "<loading>";
-  controller.getMetricsForPeriod().then((List<double> content) {
-    average = controller.getAverage(content).toStringAsFixed(3);
-    watchers.dispatch();
-  });
-  return average;
-}
-
-String showMetricName() => controller.metric.name;
-
-String showMetricDefinition() => controller.metric.description;
