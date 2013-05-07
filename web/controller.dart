@@ -1,5 +1,14 @@
 part of moire;
 
+class MetricValue {
+  final double value;
+  final String units;
+  
+  MetricValue(this.value, this.units);
+  
+  String toString() => "${value.toStringAsFixed(3)} $units";
+}
+
 /** Container for all logic for the application. */
 class Controller{
   DateTime startDate;
@@ -27,15 +36,14 @@ class Controller{
     endDate = new DateTime(int.parse(value),endDate.month);
   }
   
-  /** Return the value of a metric for a given [date]. */
-  // TODO: return unit alongside value.
-  Future<double> getMetric(String type, DateTime date) {
+  /** Return the value of a metric of [type] for a given [date]. */
+  Future<MetricValue> getMetricValue(String type, DateTime date) {
     Completer completer = new Completer();
     _loadData("metric/${type}?year=${date.year}&month=${date.month}&locale=${locale.toString()}").then((Map m) {
         if (!m.containsKey("value"))
           completer.completeError("Unable to get metric");
         else
-          completer.complete(m["value"]);
+          completer.complete(new MetricValue(m["value"], m["units"]));
     })
     .catchError((e) => completer.completeError("API Error: $e"));
     return completer.future;
@@ -59,18 +67,18 @@ class Controller{
 
 
   /** Returns a list of metric values. */
-  Future<Map<DateTime, double>> getMetricsForPeriod(String type) {
+  Future<Map<DateTime, MetricValue>> getMetricsForPeriod(String type) {
     Completer completer = new Completer();
 
     int month = startDate.month;
     int year = startDate.year;
 
-    Map<DateTime, double> results = new Map<DateTime, double>();
+    Map<DateTime, MetricValue> results = new Map<DateTime, MetricValue>();
     while(year < endDate.year || month <= endDate.month) {
       DateTime now = new DateTime(year, month);
       results[now] = null;
       print('getting metric for ${now.toString()}');
-      getMetric(type, now).then((double v) {
+      getMetricValue(type, now).then((MetricValue v) {
         print('  got metric for ${now.toString()}');
         results[now] = v;
         if (!results.containsValue(null)) {
@@ -87,10 +95,10 @@ class Controller{
     return completer.future;
   }
   
-  Future<List<double>> getMetricValuesForPeriod(String type) {
+  Future<List<MetricValue>> getMetricValuesForPeriod(String type) {
     Completer completer = new Completer();
-    getMetricsForPeriod(type).then((Map<DateTime, double> results) {
-      List<double> values = new List<double>();
+    getMetricsForPeriod(type).then((Map<DateTime, MetricValue> results) {
+      List<MetricValue> values = new List<MetricValue>();
       List<DateTime> keys = results.keys.toList();
       keys.sort((DateTime a, DateTime b) => a.compareTo(b));
       keys.forEach((k) => values.add(results[k]));
@@ -103,13 +111,16 @@ class Controller{
    * Returns the average of a list of metrics. A list of metrics
    * is used to compute aggregates over time.
    */
-  double getAverage(List<num> l) {
+  MetricValue getAverage(List<MetricValue> l) {
     assert(l != null);
     if (l.isEmpty)
-      return 0.0;
-    double avg = l.reduce((value, element) => value + element) / l.length;
+      return null;
+    assert(l.every((e) => e.units == l.first.units));
+    double sum = 0.0;
+    l.forEach((e) => sum += e.value);
+    double avg = sum / l.length;
     print('Your average is ${avg}');
-    return avg;
+    return new MetricValue(avg, l.first.units);
   }
 
   /**
@@ -117,13 +128,18 @@ class Controller{
    * is used to compute aggregates over time.
    */
 
-  double getChange(List<num> l) {
+  MetricValue getChange(List<MetricValue> l) {
     assert(l != null);
     if (l.isEmpty)
-      return 0.0;
-    double change = ((l.last - l.first) / l.last)*100;
+      return null;
+    assert(l.every((e) => e.units == l.first.units));
+    double change = ((l.last.value - l.first.value) / l.last.value) * 100;
     print('Your change is ${change} or (${change.toStringAsFixed(1)} %)');
-    return change;
+    return new MetricValue(change, l.first.units);
+  }
+  
+  int getRank() {
+    return 4;
   }
 }
 
