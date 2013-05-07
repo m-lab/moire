@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+    <element name='x-breadcrumb-div' constructor="BreadCrumbDiv" extends='div'>
+      <template>
+      <ul class="breadcrumb">
+        <li><a href="#">World</a></li>
+        <template instantiate="if !view.controller.locale.city.isEmpty">
+          <li><span class="divider">/</span> <a href="" on-click="showLocation('country')">{{view.controller.locale.country}}</a></li>
+        </template>
+        <template instantiate="if !view.controller.locale.region.isEmpty">
+          <li><span class="divider">/</span> <a href="#" on-click="showLocation('region')">{{view.controller.locale.region}}</a></li>
+        </template>
+        <template instantiate="if !view.controller.locale.city.isEmpty">
+          <li><span class="divider">/</span> <a href="#" on-click="showLocation('city')">{{view.controller.locale.city}}</a></li>
+        </template>
+      </ul>
+      </template>
+    <script type="application/dart" src="breadcrumb_div.dart"></script>
+  </element>
