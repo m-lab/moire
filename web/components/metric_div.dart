@@ -1,7 +1,7 @@
 import 'dart:html';
 import 'package:web_ui/web_ui.dart';
 import 'package:web_ui/watcher.dart' as watchers;
-import 'moire.dart';
+import '../moire.dart';
 
 class MetricDiv extends WebComponent {
   View view;
