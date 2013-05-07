@@ -30,6 +30,26 @@ void testMetric() {
           }))
           .catchError(expectAsync1((String e) => expect(false, "Should not be reached: $e"), count:0));
     });
+
+    test("getMetricsForPeriod", () {
+      controller.locale = new Locale(continent: "Europe", country: "826", region: "eng", city: "london");
+      controller.startDate = new DateTime.utc(2011, 11);
+      controller.endDate = new DateTime.utc(2012, 4);
+      controller.getMetricsForPeriod("upload_throughput_max")
+          .then(expectAsync1((Map<DateTime, MetricValue> results) {
+              expect(results.values.map((e) => e.value).toList(),
+                     unorderedEquals(
+                         [0.561083, 0.563226, 0.569035, 0.581648, 0.590309, 0.588962]));
+              expect(results.keys, unorderedEquals(
+                  [new DateTime.utc(2011,11),
+                   new DateTime.utc(2011,12),
+                   new DateTime.utc(2012,1),
+                   new DateTime.utc(2012,2),
+                   new DateTime.utc(2012,3),
+                   new DateTime.utc(2012,4)]));
+          }))
+          .catchError(expectAsync1((String e) => expect(false, "Should not be reached: $e"), count:0));
+    });
   });
 
   group('List operations',(){

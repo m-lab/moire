@@ -17,37 +17,23 @@ class Controller{
 
   String get startMonth => startDate.month.toString();
   set startMonth(String value) {
-    startDate = new DateTime(startDate.year, int.parse(value));
+    startDate = new DateTime.utc(startDate.year, int.parse(value));
   }
 
   String get endMonth  => endDate.month.toString();
   set endMonth(String value) {
-    endDate = new DateTime(endDate.year, int.parse(value));
+    endDate = new DateTime.utc(endDate.year, int.parse(value));
   }
 
 
   String get startYear  => startDate.year.toString();
   set startYear(String value) {
-    startDate = new DateTime(int.parse(value),startDate.month);
+    startDate = new DateTime.utc(int.parse(value),startDate.month);
   }
 
   String get endYear  => endDate.year.toString();
   set endYear(String value) {
-    endDate = new DateTime(int.parse(value),endDate.month);
-  }
-
-  /** Return the value of a metric of [type] for a given [date]. */
-  Future<MetricValue> getMetricValue(String type, DateTime date) {
-    Completer completer = new Completer();
-    _loadData("metric/${type}?year=${date.year}&month=${date.month}&"
-              "locale=${locale.toString()}").then((Map m) {
-        if (!m.containsKey("value"))
-          completer.completeError("Unable to get metric");
-        else
-          completer.complete(new MetricValue(m["value"], m["units"]));
-    })
-    .catchError((e) => completer.completeError("API Error: $e"));
-    return completer.future;
+    endDate = new DateTime.utc(int.parse(value),endDate.month);
   }
 
   Future<Map> _loadData(String api_call) {
@@ -66,34 +52,43 @@ class Controller{
     //TODO: return an object instead of a map
   }
 
+  /** Return the value of a metric of [type] for a given [date]. */
+  Future<MetricValue> getMetricValue(String type, DateTime date) {
+    Completer completer = new Completer();
+    _loadData("metric/${type}?year=${date.year}&month=${date.month}&"
+              "locale=${locale.toString()}").then((Map m) {
+        if (!m.containsKey("value"))
+          completer.completeError("Unable to get metric");
+        else
+          completer.complete(new MetricValue(m["value"], m["units"]));
+    })
+    .catchError((e) => completer.completeError("API Error: $e"));
+    return completer.future;
+  }
 
-  /** Returns a list of metric values. */
   Future<Map<DateTime, MetricValue>> getMetricsForPeriod(String type) {
     Completer completer = new Completer();
-
-    int month = startDate.month;
-    int year = startDate.year;
-
-    print('getting metrics for $year-$month to ${endDate.year}-${endDate.month}');
-    Map<DateTime, MetricValue> results = new Map<DateTime, MetricValue>();
-    while(year < endDate.year || month <= endDate.month) {
-      DateTime now = new DateTime(year, month);
-      results[now] = null;
-      getMetricValue(type, now).then((MetricValue v) {
-        print('  received $now');
-        results[now] = v;
-        if (!results.containsValue(null)) {
-          print('  complete!');
-          completer.complete(results);
-        }
-      });
-
-      if (++month == 13) {
-        ++year;
-        month = 1;
-      }
-    }
-
+    print(startDate);
+    print(endDate);
+    _loadData("metric/${type}?year=${startDate.year}&month=${startDate.month}&"
+              "endyear=${endDate.year}&endmonth=${endDate.month}&"
+              "locale=${locale.toString()}").then((Map<String, Map> m) {
+        Map<DateTime, MetricValue> results = new Map<DateTime, MetricValue>();
+        m.forEach((String date_str, Map metric) {
+          if (!metric.containsKey("value"))
+            completer.completeError("Unable to get metric");
+          else {
+            List<String> dateParts = date_str.split("-");
+            DateTime date = new DateTime.utc(int.parse(dateParts[0]),
+                                             int.parse(dateParts[1]));
+            MetricValue metricValue = new MetricValue(metric["value"],
+                                                      metric["units"]);
+            results[date] = metricValue;
+          }
+        });
+        completer.complete(results);
+    })
+    .catchError((e) => completer.completeError("API Error: $e"));
     return completer.future;
   }
 
