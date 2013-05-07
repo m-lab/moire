@@ -36,6 +36,16 @@ class View {
   
   String showMetricName(String type) => kMetrics[type].name;
   String showMetricDefinition(String type) => kMetrics[type].description;
+  String showStartMonth() => controller.startMonth; 
+  String showStartYear() => controller.startYear;  
+  String showEndMonth() => controller.endMonth;  
+  String showEndYear() => controller.endYear;  
+  String setStartMonth(String startMonth) => controller.startMonth = startMonth; 
+  String setEndMonth(String endMonth) => controller.endMonth = endMonth; 
+  String setStartYear(String startYear) => controller.startYear = startYear; 
+  String setEndYear(String endYear) => controller.endYear = endYear; 
+
+
 }
 
 class Chart extends View{

@@ -2,6 +2,7 @@ import 'moire.dart';
 import 'urls.dart';
 import 'package:web_ui/web_ui.dart';
 import 'dart:async';
+import 'package:web_ui/watcher.dart';
 
 final Controller controller = new Controller();
 final View view = new View(controller);
