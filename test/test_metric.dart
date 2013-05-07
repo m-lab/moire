@@ -32,17 +32,21 @@ void testMetric() {
     });
   });
 
-  group('List operations',(){    
+  group('List operations',(){
     test("getAverage", () {
       List<double> input = [28.0, 10.0, 16.0, 4.0];
       List<MetricValue> inputValues = input.map((e) => new MetricValue(e, "foo")).toList();
-      expect(controller.getAverage(inputValues), equals(new MetricValue(14.5, "foo")));
+      MetricValue average = controller.getAverage(inputValues);
+      expect(average.value, 14.5);
+      expect(average.units, "foo");
     });
 
     test("getChange", () {
       List<double> input = [28.0, 10.0, 16.0, 4.0];
       List<MetricValue> inputValues = input.map((e) => new MetricValue(e, "foo")).toList();
-      expect(controller.getChange(inputValues), equals(new MetricValue(-600.0, "foo")));
+      MetricValue change = controller.getChange(inputValues);
+      expect(change.value, -600);
+      expect(change.units, "foo");
     });
 
   });
