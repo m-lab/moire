@@ -16,5 +16,8 @@ class BreadCrumbDiv extends WebComponent {
                      region: view.controller.locale.region);
     }
     print(view.controller.locale.fullLocation);
-  }
+    }
+  //TODO: change 'active' and coloring
+  //TODO: refresh breadcrumb after update
+    
 }

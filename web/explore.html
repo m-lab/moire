@@ -13,6 +13,8 @@
 <link rel="import" href="components/metric_div.html">
 <link rel="import" href="components/date_div.html">
 <link rel="import" href="components/breadcrumb_div.html">
+<link rel="import" href="components/search_div.html">
+<link rel="import" href="components/overview_div.html">
 
 <body>
 <div id="page" class="container">
@@ -31,54 +33,29 @@
         </ul>
       </div>
     </div>
-    <!-- /.navbar -->
   </div>
 </div>
+ 
 <div id= "controls" class="row-fluid">
-  <div class="span4">
-    <form class="form-search">
-      <div class="input-append">
-        <input class="span10" id="appendedInputButton" type="text" placeholder="Your country...">
-        <button class="btn" type="button">Search</button>
-      </div>
-    </form>
-    <div is='x-breadcrumb-div' view="{{view}}" class="span 4"></div>
+    <div class="row-fluid">
+      <div class="span4"><div is='x-search-div' view="{{view}}"></div></div>
+      <div class="span4 offset4"><div is='x-date-div' view="{{view}}"></div></div>
+    </div>
+  <div class="row-fluid">
+    <div class="span4"><div is='x-breadcrumb-div' view="{{view}}"></div></div>
   </div>
-  <div is='x-date-div' view="{{view}}" class="span 4"></div>
-</div>
+</div> 
+ 
 <div id="content" class="row-fluid">
-  <div id="left-controls" class="span3">
-    <h4> {{controller.locale.city}} </h4>
-    <h6>Download Speed</h6>
-    <ul class="inline">
-      <li><i class="icon-arrow-up"></i></li>
-      <li>
-        <h1>15.21</h1>
-      </li>
-      <li>
-        <p>mbps</p>
-      </li>
-    </ul>
-    <h6>Upload Speed</h6>
-    <ul class="inline">
-      <li><i class="icon-arrow-down"></i></li>
-      <li>
-        <h1>9</h1>
-      </li>
-      <li>
-        <p>mbps</p>
-      </li>
-    </ul>
-  </div>
-</div>
-    <div id="main-content" class="span9">
+  <div class="span3"><div is='x-overview-div' view="{{view}}"></div></div>
+      <div id="main-content" class="span9">
       <div class="row">
         <h4>Speed</h4>
         <p>These metrics are related to the speed that users are achieving on
            their connections. We conclude this based on {{view.showTestCount()}}
-           individual test results between {{controller.startDate.month}}-
-           {{controller.startDate.year}} and {{controller.endDate.month}}-
-           {{controller.endDate.year}}.</p>
+           individual test results between {{view.controller.startDate.month}}-
+           {{view.controller.startDate.year}} and {{view.controller.endDate.month}}-
+           {{view.controller.endDate.year}}.</p>
       </div>
       <div class="row">
         <div is='x-metric-div' view="{{view}}"
@@ -95,6 +72,7 @@
         </div>
       </div>
     </div>
+  </div>  
 </div>
 <!-- javascript -->
 <script src="http://code.jquery.com/jquery.js"></script>
