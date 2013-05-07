@@ -4,16 +4,16 @@ part of moire;
 class Locale {
   @observable
   final String continent;
-  
+
   @observable
   final String country;
-  
+
   @observable
   final String region;
 
   @observable
   final String city;
-  
+
   get fullLocation {
     String location = '';
     location += '${this.country}';
@@ -24,8 +24,10 @@ class Locale {
     return location;
   }
 
-  /** Constructs a Locale that is nearest to a given [latitude] and [longitude]. */
-  static Future<Locale> fromLatitudeAndLongitude(double latitude, double longitude) {
+  /** Constructs a Locale that is nearest to a given [latitude] and [longitude].
+   */
+  static Future<Locale> fromLatitudeAndLongitude(double latitude,
+                                                       double longitude) {
     Completer completer = new Completer();
 
     String url = "$kMetricsAPIUrl/nearest?lat=$latitude&lon=$longitude";
@@ -69,7 +71,8 @@ class Locale {
    * Throws an [Exception] if [Locale] doesn't have the appropriate values, or
    * Metrics API server cannot be reached.
    */
-  //TODO: error handling for empty Http response, no response from server, malformed location string
+  //TODO: error handling for empty Http response, no response from server,
+  // malformed location string
 
   Future<String> getParent() {
     String location = this.toString();
@@ -95,7 +98,8 @@ class Locale {
    * Requests the children locations of a location using the M-lab Metrics API.
    * Formats Locale into the proper HTTP GET URL, and performs a HTTP request.
    * Throws an [Exception] if [Locale] doesn't have the appropriate values, or
-   * Metrics API server cannot be reached.Callers of this can use 'getChildren().then((List l) { ... })
+   * Metrics API server cannot be reached. Callers of this can use
+   * 'getChildren().then((List l) { ... })
    */
   Future<List<String>> getChildren() {
     String location = this.toString();

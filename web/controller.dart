@@ -3,9 +3,9 @@ part of moire;
 class MetricValue {
   final double value;
   final String units;
-  
+
   MetricValue(this.value, this.units);
-  
+
   String toString() => "${value.toStringAsFixed(3)} $units";
 }
 
@@ -14,32 +14,33 @@ class Controller{
   DateTime startDate;
   DateTime endDate;
   Locale locale;
-  
+
   String get startMonth => startDate.month.toString();
   set startMonth(String value) {
     startDate = new DateTime(startDate.year, int.parse(value));
   }
-  
+
   String get endMonth  => endDate.month.toString();
   set endMonth(String value) {
     endDate = new DateTime(endDate.year, int.parse(value));
   }
-  
- 
+
+
   String get startYear  => startDate.year.toString();
   set startYear(String value) {
     startDate = new DateTime(int.parse(value),startDate.month);
   }
-  
+
   String get endYear  => endDate.year.toString();
   set endYear(String value) {
     endDate = new DateTime(int.parse(value),endDate.month);
   }
-  
+
   /** Return the value of a metric of [type] for a given [date]. */
   Future<MetricValue> getMetricValue(String type, DateTime date) {
     Completer completer = new Completer();
-    _loadData("metric/${type}?year=${date.year}&month=${date.month}&locale=${locale.toString()}").then((Map m) {
+    _loadData("metric/${type}?year=${date.year}&month=${date.month}&"
+              "locale=${locale.toString()}").then((Map m) {
         if (!m.containsKey("value"))
           completer.completeError("Unable to get metric");
         else
@@ -56,7 +57,7 @@ class Controller{
       if (result.containsKey("error")) {
         completer.completeError(result["error"]);
       } else {
-        print('Your metric ${result["units"]} is ${result["value"]}');
+        // print('Your metric ${result["units"]} is ${result["value"]}');
         completer.complete(result);
       }
     })
@@ -73,15 +74,16 @@ class Controller{
     int month = startDate.month;
     int year = startDate.year;
 
+    print('getting metrics for $year-$month to ${endDate.year}-${endDate.month}');
     Map<DateTime, MetricValue> results = new Map<DateTime, MetricValue>();
     while(year < endDate.year || month <= endDate.month) {
       DateTime now = new DateTime(year, month);
       results[now] = null;
-      print('getting metric for ${now.toString()}');
       getMetricValue(type, now).then((MetricValue v) {
-        print('  got metric for ${now.toString()}');
+        print('  received $now');
         results[now] = v;
         if (!results.containsValue(null)) {
+          print('  complete!');
           completer.complete(results);
         }
       });
@@ -94,7 +96,7 @@ class Controller{
 
     return completer.future;
   }
-  
+
   Future<List<MetricValue>> getMetricValuesForPeriod(String type) {
     Completer completer = new Completer();
     getMetricsForPeriod(type).then((Map<DateTime, MetricValue> results) {
@@ -137,7 +139,8 @@ class Controller{
     print('Your change is ${change} or (${change.toStringAsFixed(1)} %)');
     return new MetricValue(change, l.first.units);
   }
-  
+
+  // TODO: get rank from somewhere.
   int getRank() {
     return 4;
   }

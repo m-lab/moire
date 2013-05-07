@@ -15,19 +15,8 @@ class DateDiv extends WebComponent {
   @observable
   String get endYear => view.showEndYear();
   
-  set startMonth(String month){
-    view.setStartMonth(month);
-  }
-  
-  set endMonth(String month){
-    view.setEndMonth(month);
-  }
-  
-  set endYear(String year){
-    view.setEndYear(year);
-  }
-  
-  set startYear(String year){
-    view.setStartYear(year);
-  }
+  set startMonth(String month) => view.setStartMonth(month);
+  set endMonth(String month) => view.setEndMonth(month);
+  set endYear(String year) => view.setEndYear(year);
+  set startYear(String year) => view.setStartYear(year);
 }

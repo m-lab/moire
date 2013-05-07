@@ -31,7 +31,7 @@
         </ul>
       </div>
     </div>
-    <!-- /.navbar --> 
+    <!-- /.navbar -->
   </div>
 </div>
 <div id= "controls" class="row-fluid">
@@ -74,28 +74,34 @@
     <div id="main-content" class="span9">
       <div class="row">
         <h4>Speed</h4>
-        <p>These metrics are related to the speed that users are achieving on their connections. We conclude this based on {{view.showTestCount()}} individual test results between {{controller.startDate.month}}-{{controller.startDate.year}} and {{controller.endDate.month}}-{{controller.endDate.year}}. </p>
+        <p>These metrics are related to the speed that users are achieving on
+           their connections. We conclude this based on {{view.showTestCount()}}
+           individual test results between {{controller.startDate.month}}-
+           {{controller.startDate.year}} and {{controller.endDate.month}}-
+           {{controller.endDate.year}}.</p>
       </div>
       <div class="row">
-        <div is='x-metric-div' view="{{view}}" type="{{'download_throughput_max'}}" class="span6"></div>
+        <div is='x-metric-div' view="{{view}}"
+             type="{{'download_throughput_max'}}" class="span6"></div>
         <div class="span4">
           <p>Graph </p>
         </div>
       </div>
       <div class="row">
-        <div is='x-metric-div' view="{{view}}" type="{{'upload_throughput_max'}}" class="span6"></div>
+        <div is='x-metric-div' view="{{view}}"
+             type="{{'upload_throughput_max'}}" class="span6"></div>
         <div class="span4">
           <p>Graph </p>
         </div>
       </div>
     </div>
 </div>
-<!-- javascript --> 
-<script src="http://code.jquery.com/jquery.js"></script> 
-<script src="js/bootstrap.js"></script> 
-<script src="js/bootstrap.min.js"></script> 
-<script type="application/dart" src="main.dart"></script> 
-<script src="packages/browser/dart.js"></script> 
+<!-- javascript -->
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="application/dart" src="main.dart"></script>
+<script src="packages/browser/dart.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 </body>
 </html>
