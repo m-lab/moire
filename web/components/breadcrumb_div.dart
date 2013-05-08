@@ -18,6 +18,6 @@ class BreadCrumbDiv extends WebComponent {
     print(view.controller.locale.fullLocation);
     }
   //TODO: change 'active' and coloring
-  //TODO: refresh breadcrumb after update
+  //TODO: refresh breadcrumb after update of locale
     
 }

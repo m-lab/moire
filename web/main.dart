@@ -3,6 +3,7 @@ import 'urls.dart';
 import 'package:web_ui/web_ui.dart';
 import 'dart:async';
 import 'package:web_ui/watcher.dart';
+import 'package:js/js.dart' as js;
 
 final Controller controller = new Controller();
 final View view = new View(controller);
@@ -13,6 +14,8 @@ main() {
   controller.endDate = new DateTime.utc(2012, 03, 01);
   controller.locale = new Locale(continent: '', country: '528',
                                  region: 'nh', city: 'amsterdam');
+  
+
 
   //Handles url's
   //TODO: fix handlers
