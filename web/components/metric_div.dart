@@ -18,7 +18,7 @@ class MetricDiv extends WebComponent {
 
   @observable
   String perYearChange;
-
+  
   String get name => view.showMetricName(type);
   String get description => view.showMetricDefinition(type);
   String get rank => view.showRank();

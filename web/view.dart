@@ -51,14 +51,20 @@ class View {
 
   String showRank() => controller.getRank().toString();
 }
-class Chart extends View{
+class Chart {
   String title;
   String metric_type;
   var legend;
   int width;
   int height;
-
-  Chart(this.title,this.metric_type,this.legend,this.width,this.height);
+    
+  Chart(String title, String metric_type, var legend, int width, int height){
+    this.title=title;
+    this.metric_type=metric_type;
+    this.legend=legend;
+    this.width=width;
+    this.height=height;
+  }
 
   //Draws graph using the Vizualization API.
   void drawGraph() {
