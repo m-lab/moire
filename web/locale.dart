@@ -2,42 +2,57 @@ part of moire;
 
 const Map<String, Locale> kLocales = const<String, Locale> {
   "london": const Locale(continent: 'Europe', country: '826',
-      region: 'eng', city: 'london'),
-  "rome": const Locale(continent: '', country: '380',
-      region: 'rm', city: 'rome'), 
-  "netherlands": const Locale(continent: 'Europe', country: '528',
-       region: '', city: ''),
-  "amsterdam": const    Locale(continent: 'Europe', country: '528',
-           region: 'nh', city: 'amsterdam'),     
-  "spain": const Locale(continent: 'Europe', country: '724',
-       region: '', city: ''),       
+                         region: 'eng', city: 'london'),
+  "rome": const Locale(country: '380', region: 'rm', city: 'rome'),
+  "netherlands": const Locale(continent: 'Europe', country: '528'),
+  "amsterdam": const Locale(continent: 'Europe', country: '528',
+                            region: 'nh', city: 'amsterdam'),
+  "spain": const Locale(continent: 'Europe', country: '724'),
   "pittsburg": const Locale(continent: 'North America', country: '840',
-       region: 'ca', city: 'pittsburg'),  
+                            region: 'ca', city: 'pittsburg'),
   "san francisco": const Locale(continent: 'North America', country: '840',
-       region: 'ca', city: 'san-francisco'), 
+                                region: 'ca', city: 'san-francisco'),
   "mountain view": const Locale(continent: 'North America', country: '840',
-       region: 'ca', city: 'Mountain View'),
+                                region: 'ca', city: 'Mountain View'),
   "california": const Locale(continent: 'North America', country: '840',
-       region: 'ca', city: ''),             
+                             region: 'ca'),
 };
-
-
 
 /** Represents a location. */
 class Locale {
-  @observable
   final String continent;
-
-  @observable
   final String country;
-
-  @observable
   final String region;
-
-  @observable
   final String city;
 
-  get fullLocation {
+  /** Constructs a Locale that is nearest to a given [latitude] and [longitude].
+   */
+  static Future<Locale> fromLatitudeAndLongitude(double latitude,
+                                                 double longitude) {
+    Completer completer = new Completer();
+
+    String url = "$kMetricsAPIUrl/nearest?lat=$latitude&lon=$longitude";
+
+    HttpRequest.getString(url).then((response) {
+        print(response);
+        Map result = parse(response);
+        if (result.containsKey("error")) {
+          completer.completeError(result["error"]);
+        } else {
+          Locale l = new Locale(country: result["country"],
+                                region: result["region"],
+                                city: result["city"]);
+          print('The nearest location is $l');
+          completer.complete(l);
+        }
+    });
+
+    return completer.future;
+  }
+
+  const Locale({this.continent: "", this.country: "", this.region: "", this.city: ""});
+
+  String toString() {
     String location = '';
     location += '${this.country}';
     if(!this.region.isEmpty)
@@ -47,34 +62,7 @@ class Locale {
     return location;
   }
 
-  /** Constructs a Locale that is nearest to a given [latitude] and [longitude].
-   */
-  static Future<Locale> fromLatitudeAndLongitude(double latitude,
-                                                       double longitude) {
-    Completer completer = new Completer();
-
-    String url = "$kMetricsAPIUrl/nearest?lat=$latitude&lon=$longitude";
-
-    HttpRequest.getString(url).then((response) {
-      print(response);
-      Map result = parse(response);
-      if (result.containsKey("error")) {
-        completer.completeError(result["error"]);
-      } else {
-        Locale l = new Locale(country: result["country"],
-                              region: result["region"],
-                              city: result["city"]);
-        print('The nearest location is $l');
-        completer.complete(l);
-      }
-    });
-
-    return completer.future;
-  }
-
-  const Locale({this.continent: "", this.country: "", this.region: "", this.city: ""});
-
-  String toString() {
+  String toAPIString() {
     String location = '';
     if (!this.country.isEmpty) {
       location += '${this.country}';
@@ -98,20 +86,19 @@ class Locale {
   // malformed location string
 
   Future<String> getParent() {
-    String location = this.toString();
-    print(location);
-    String url = "$kMetricsAPIUrl/locale/$location";
-
     Completer completer = new Completer();
+
+    String url = "$kMetricsAPIUrl/locale/${toAPIString()}";
+
     HttpRequest.getString(url).then((response) {
-      print(response);
-      Map result = parse(response);
-      if (result.containsKey("error")) {
-        completer.completeError(result["error"]);
-      } else {
-        print('Your parent is ${result["parent"]}');
-        completer.complete(result["parent"]);
-      }
+        print(response);
+        Map result = parse(response);
+        if (result.containsKey("error")) {
+          completer.completeError(result["error"]);
+        } else {
+          print('Your parent is ${result["parent"]}');
+          completer.complete(result["parent"]);
+        }
     })
     .catchError((error) => print(error));
     return completer.future;
@@ -125,19 +112,19 @@ class Locale {
    * 'getChildren().then((List l) { ... })
    */
   Future<List<String>> getChildren() {
-    String location = this.toString();
-    String url = "$kMetricsAPIUrl/locale/$location";
-
     Completer completer = new Completer();
+
+    String url = "$kMetricsAPIUrl/locale/${toAPIString()}";
+
     HttpRequest.getString(url).then((response) {
-      print(response);
-      Map result = parse(response);
-      if (result.containsKey("error")) {
-        completer.completeError(result["error"]);
-      } else {
-        print('The children of your location are ${result["children"]}');
-        completer.complete(result["children"]);
-      }
+        print(response);
+        Map result = parse(response);
+        if (result.containsKey("error")) {
+          completer.completeError(result["error"]);
+        } else {
+          print('The children of your location are ${result["children"]}');
+          completer.complete(result["children"]);
+        }
     })
     .catchError((error) => print(error));
     return completer.future;
