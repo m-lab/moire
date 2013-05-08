@@ -12,7 +12,12 @@ class GraphDiv extends WebComponent {
   void inserted() {
     // TODO: width/height should come from HTML, probably.
     _chart = new Chart(view, 'visualization', type, 'none', 300,200);
-    // TODO: is this call necessary? can it be made from the constructor?
-    _chart.drawGraph();
+    _drawGraph();
+
+    queryAll("input[name=dateInput]").forEach((InputElement e) {
+      e.onChange.listen((Event e) => _drawGraph());
+    });
   }
+
+  void _drawGraph() => _chart.drawGraph();
 }
