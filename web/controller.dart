@@ -10,9 +10,13 @@ class MetricValue {
 }
 
 /** Container for all logic for the application. */
-class Controller{
+class Controller {
+  @observable
   DateTime startDate;
+
+  @observable
   DateTime endDate;
+
   Locale locale;
 
   String get startMonth => startDate.month.toString();

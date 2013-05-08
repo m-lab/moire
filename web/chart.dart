@@ -66,6 +66,7 @@ class Chart {
             chart.draw(data, options);
         })
     .catchError((dynamic e) {
+        alert.remove();
         if (e is String)
           _view._addError(e);
         else

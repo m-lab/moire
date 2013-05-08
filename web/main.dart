@@ -1,14 +1,10 @@
 import 'moire.dart';
 import 'urls.dart';
-import 'package:web_ui/web_ui.dart';
-import 'dart:async';
-import 'package:web_ui/watcher.dart';
-import 'package:js/js.dart' as js;
 
 final Controller controller = new Controller();
 final View view = new View(controller);
 
-main() {
+void main() {
   //TODO: move to tests
   controller.startDate = new DateTime.utc(2012, 02, 01);
   controller.endDate = new DateTime.utc(2012, 04, 01);

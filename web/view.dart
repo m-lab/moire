@@ -6,7 +6,7 @@ class View {
   View(this.controller);
 
   String showTestCount() {
-    return "lots and lots";
+    return "lots and lots of";
   }
 
   Future<String> showMetric(String metric_type) {
