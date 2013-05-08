@@ -51,20 +51,16 @@ class View {
 
   String showRank() => controller.getRank().toString();
 }
+
 class Chart {
   String title;
   String metric_type;
   var legend;
   int width;
   int height;
-    
-  Chart(String title, String metric_type, var legend, int width, int height){
-    this.title=title;
-    this.metric_type=metric_type;
-    this.legend=legend;
-    this.width=width;
-    this.height=height;
-  }
+  View view;
+
+  Chart(this.title, this.metric_type, this.legend, this.width, this.height, this.view);
 
   //Draws graph using the Vizualization API.
   void drawGraph() {
@@ -81,7 +77,7 @@ class Chart {
     var gviz = js.context.google.visualization;
 
     // Create and populate the data table.
-    controller.getMetricsForPeriod(metric_type)
+    view.controller.getMetricsForPeriod(metric_type)
       .then((Map<DateTime, double> results) {
         List<List> listData = new List<List>();
 
