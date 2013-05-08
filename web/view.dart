@@ -14,7 +14,8 @@ class View {
     controller.getMetricValue(metric_type, controller.startDate)
         .then((content) {
             completer.complete(content.toString());
-        });
+        })
+        .catchError((e) => _addError(e));
     return completer.future;
   }
 
@@ -23,7 +24,8 @@ class View {
     controller.getMetricValuesForPeriod(metric_type)
         .then((List<MetricValue> content) {
             completer.complete(controller.getChange(content).toString());
-        });
+        })
+        .catchError((e) => _addError(e));
     return completer.future;
   }
 
@@ -33,7 +35,7 @@ class View {
         .then((List<MetricValue> content) {
             completer.complete(controller.getAverage(content).toString());
         })
-        .catchError((e) => completer.completeError(e));
+        .catchError((e) => _addError(e));
     return completer.future;
   }
 
@@ -50,4 +52,22 @@ class View {
   String setEndYear(String endYear) => controller.endYear = endYear;
 
   String showRank() => controller.getRank().toString();
+
+  void _addError(String error) {
+    ButtonElement closeButton = new ButtonElement();
+    closeButton.text = "x";
+    closeButton.type = "button";
+    closeButton.classes.add("close");
+    closeButton.attributes["data-dismiss"] = "alert";
+
+    SpanElement errorText = new SpanElement();
+    errorText.text = error;
+
+    DivElement errorDiv = new DivElement();
+    errorDiv.classes.addAll(["alert", "alert-error"]);
+    errorDiv.children.add(closeButton);
+    errorDiv.children.add(errorText);
+
+    query("#errors").children.add(errorDiv);
+  }
 }

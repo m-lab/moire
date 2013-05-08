@@ -49,6 +49,7 @@ class Chart {
         // Create and draw the visualization.
         var chart = new js.Proxy(gviz.LineChart, query('#$_divName'));
         chart.draw(tableData, options);
-    });
+    })
+    .catchError((e) => _view._addError(e));
   }
 }
