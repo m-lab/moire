@@ -23,9 +23,11 @@ class Chart {
   //TODO: check getter error in js.context.google, because it seems to work
   //TODO: pass data from other methods to build the graph.
   void _buildGraph() {
+    DivElement alert = _view._addAlert("building $_metricType graph");
     // Create and populate the data table.
     _view.controller.getMetricsForPeriod(_metricType)
         .then((Map<DateTime, MetricValue> results) {
+            alert.remove();
             List<List> listData = new List<List>();
             //listData.add(['Date', 'Value']);
             List<DateTime> keys = results.keys.toList();

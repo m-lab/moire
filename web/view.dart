@@ -54,6 +54,10 @@ class View {
   String showRank() => controller.getRank().toString();
 
   void _addError(String error) {
+    _addAlert(error, true);
+  }
+
+  DivElement _addAlert(String alert, [bool isError = false]) {
     ButtonElement closeButton = new ButtonElement();
     closeButton.text = "x";
     closeButton.type = "button";
@@ -61,13 +65,15 @@ class View {
     closeButton.attributes["data-dismiss"] = "alert";
 
     SpanElement errorText = new SpanElement();
-    errorText.text = error;
+    errorText.text = alert;
 
     DivElement errorDiv = new DivElement();
-    errorDiv.classes.addAll(["alert", "alert-error"]);
+    errorDiv.classes.add("alert");
+    if (isError) errorDiv.classes.add("alert-error");
     errorDiv.children.add(closeButton);
     errorDiv.children.add(errorText);
 
-    query("#errors").children.add(errorDiv);
+    query("#alerts").children.add(errorDiv);
+    return errorDiv;
   }
 }
