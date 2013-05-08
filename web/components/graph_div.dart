@@ -6,18 +6,18 @@ import '../moire.dart';
 class GraphDiv extends WebComponent {
   View view;
   String type;
+  String div_id;
 
   Chart _chart;
 
   void inserted() {
-    // TODO: width/height should come from HTML, probably.
-    _chart = new Chart(view, 'visualization', type, 'none', 300,200);
-    _drawGraph();
+    DivElement visDiv = query("#visualization");
+    visDiv.id = div_id;
+    _chart = new Chart(view, div_id, type, 'none',
+                       visDiv.style.width, visDiv.style.height);
+    _chart.drawGraph();
 
-    queryAll("input[name=dateInput]").forEach((InputElement e) {
-      e.onChange.listen((Event e) => _drawGraph());
-    });
+    queryAll("input[name=dateInput]").forEach((InputElement e) =>
+        e.onChange.listen((Event e) => _chart.drawGraph()));
   }
-
-  void _drawGraph() => _chart.drawGraph();
 }

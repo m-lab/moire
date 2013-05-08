@@ -57,22 +57,23 @@
         <h4>Speed</h4>
         <p>These metrics are related to the speed that users are achieving on
            their connections. We conclude this based on {{view.showTestCount()}}
-           individual test results between {{view.controller.startDate.month}}-
-           {{view.controller.startDate.year}} and {{view.controller.endDate.month}}-
-           {{view.controller.endDate.year}}.</p>
+           individual test results between {{view.controller.startDate.month}} -
+           {{view.controller.startDate.year}} and
+           {{view.controller.endDate.month}} - {{view.controller.endDate.year}}.
+        </p>
       </div>
       <div class="row">
         <div is='x-metric-div' view="{{view}}"
              type="{{'download_throughput_med'}}" class="span6"></div>
-        <div is='x-graph-div' view="{{view}}"
+        <div is='x-graph-div' view="{{view}}" div_id="{{'download_med'}}"
              type="{{'download_throughput_med'}}" class="span4"></div>
       </div>
       <div class="row">
         <div is='x-metric-div' view="{{view}}"
              type="{{'upload_throughput_med'}}" class="span6"></div>
-        <div is='x-graph-div' view="{{view}}"
+        <div is='x-graph-div' view="{{view}}" div_id="{{'upload_med'}}"
              type="{{'upload_throughput_med'}}" class="span4"></div>
-        </div>     
+        </div>
     </div>
   </div>
 </div>
