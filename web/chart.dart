@@ -23,18 +23,19 @@ class Chart {
   //TODO: check getter error in js.context.google, because it seems to work
   //TODO: pass data from other methods to build the graph.
   void _buildGraph() {
-    var gviz = js.context.google.visualization;
-
+    
     // Create and populate the data table.
     _view.controller.getMetricsForPeriod(_metricType)
-      .then((Map<DateTime, double> results) {
+      .then((Map<DateTime, MetricValue> results) {
         List<List> listData = new List<List>();
-
+        listData.add(['Date', 'Value']);
         results.forEach((k, v) {
-          listData.add([k.toString(), v.toString()]);
+          listData.add([k.toString(), v.value]);
         });
 
         var arrayData = js.array(listData);
+
+        var gviz = js.context.google.visualization;
         var tableData = gviz.arrayToDataTable(arrayData);
 
         // Sets options for chart.
@@ -47,9 +48,14 @@ class Chart {
         });
 
         // Create and draw the visualization.
-        var chart = new js.Proxy(gviz.LineChart, query('#$_divName'));
+        var chart = new js.Proxy(gviz.BarChart, query('#$_divName'));
         chart.draw(tableData, options);
     })
-    .catchError((e) => _view._addError(e));
+    .catchError((dynamic e) {
+        if (e is String)
+          _view._addError(e);
+        else
+          _view._addError(e.toString());
+    });
   }
 }

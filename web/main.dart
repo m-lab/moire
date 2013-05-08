@@ -11,9 +11,9 @@ final View view = new View(controller);
 main() {
   //TODO: move to tests
   controller.startDate = new DateTime.utc(2012, 02, 01);
-  controller.endDate = new DateTime.utc(2012, 03, 01);
-  controller.locale = new Locale(continent: '', country: '528',
-                                 region: 'nh', city: 'amsterdam');
+  controller.endDate = new DateTime.utc(2012, 04, 01);
+  controller.locale = new Locale(continent: 'Europe', country: '826',
+      region: 'eng', city: 'london');
 
 
   //Handles url's

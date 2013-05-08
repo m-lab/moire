@@ -56,7 +56,7 @@ class Controller{
   Future<MetricValue> getMetricValue(String type, DateTime date) {
     Completer completer = new Completer();
     _loadData("metric/${type}?year=${date.year}&month=${date.month}&"
-              "locale=${locale.toString()}").then((Map m) {
+              "locale=${locale.toAPIString()}").then((Map m) {
         if (!m.containsKey("value"))
           completer.completeError("Unable to get metric");
         else
@@ -72,7 +72,7 @@ class Controller{
     print(endDate);
     _loadData("metric/${type}?year=${startDate.year}&month=${startDate.month}&"
               "endyear=${endDate.year}&endmonth=${endDate.month}&"
-              "locale=${locale.toString()}").then((Map<String, Map> m) {
+              "locale=${locale.toAPIString()}").then((Map<String, Map> m) {
         Map<DateTime, MetricValue> results = new Map<DateTime, MetricValue>();
         m.forEach((String date_str, Map metric) {
           if (!metric.containsKey("value"))
