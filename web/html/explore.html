@@ -28,7 +28,7 @@
           </ul>
         </div>
       </div>
-      <!-- /.navbar --> 
+      <!-- /.navbar -->
     </div>
   </div>
   <div id= "controls" class="row-fluid">
@@ -55,7 +55,7 @@
     <div class="span4 offset4">
       <div class="controls controls-row">
         <input type="number" class="span2" min="1" bind-value="controller.startMonth">
-        <input type="number" class="span3" min="1" bind-value="controller.startYear"> 
+        <input type="number" class="span3" min="1" bind-value="controller.startYear">
         <input type="number" class="span2" min="1" bind-value="controller.endMonth">
         <input type="number" class="span3" min="1" bind-value="controller.endYear">
       </div>
@@ -97,7 +97,7 @@
       <div class="row">
         <div class="span6">
           <h5>Average Download Speed</H5>
-          <p>{{showMetricDefinition()}} The average download speed in {{location.fullLocation}} was ${Metric.value}. The year on year growth was ${Metric.getChange}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
+          <p>{{showMetricDefinition()}} The average download speed in {{location.toString()}} was ${Metric.value}. The year on year growth was ${Metric.getChange}. Compared to last quarter the growth was ${Metric.getChange}. The Netherlands rank ${getRank} in the world. </p>
           <p>
             <button class="btn btn-primary" type="button">Learn More</button>
           </p>

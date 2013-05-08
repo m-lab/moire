@@ -14,7 +14,6 @@ main() {
   controller.endDate = new DateTime.utc(2012, 03, 01);
   controller.locale = new Locale(continent: '', country: '528',
                                  region: 'nh', city: 'amsterdam');
-  
 
 
   //Handles url's

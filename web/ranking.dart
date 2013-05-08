@@ -1,6 +1,4 @@
-library ranking;
+part of moire;
 
-import 'package:web_ui/web_ui.dart';
-
-class RankingView extends WebComponent {
+class Ranking {
 }

@@ -4,17 +4,15 @@ import 'package:web_ui/watcher.dart' as watchers;
 import '../moire.dart';
 
 class GraphDiv extends WebComponent {
-  View view;  
+  View view;
   String type;
-  
-  List values;
-  
 
-  Chart chart = new Chart('Download Throughput','download_throughput_max','none',300,200);
-  
-  void buildChart(){
-    //TODO: get it to actually build
-    //chart.drawGraph();
-    //chart.buildGraph();
+  Chart _chart;
+
+  void inserted() {
+    // TODO: width/height should come from HTML, probably.
+    _chart = new Chart(view, 'visualization', type, 'none', 300,200);
+    // TODO: is this call necessary? can it be made from the constructor?
+    _chart.drawGraph();
   }
 }
