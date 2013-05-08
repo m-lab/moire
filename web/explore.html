@@ -63,17 +63,16 @@
       </div>
       <div class="row">
         <div is='x-metric-div' view="{{view}}"
-             type="{{'download_throughput_max'}}" class="span6"></div>
+             type="{{'download_throughput_med'}}" class="span6"></div>
         <div is='x-graph-div' view="{{view}}"
-             type="{{'download_throughput_max'}}" class="span4"></div>
+             type="{{'download_throughput_med'}}" class="span4"></div>
       </div>
       <div class="row">
         <div is='x-metric-div' view="{{view}}"
-             type="{{'upload_throughput_max'}}" class="span6"></div>
-        <div class="span4">
-          <p>Graph </p>
-        </div>
-      </div>
+             type="{{'upload_throughput_med'}}" class="span6"></div>
+        <div is='x-graph-div' view="{{view}}"
+             type="{{'upload_throughput_med'}}" class="span4"></div>
+        </div>     
     </div>
   </div>
 </div>

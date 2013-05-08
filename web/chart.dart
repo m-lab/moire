@@ -41,14 +41,14 @@ class Chart {
         // Sets options for chart.
         //TODO: subclasses have other options
         var options = js.map({
-          'curveType': "function",
+          'curveType': "none",
           'title': '${kMetrics[_metricType].name}',
           'width': '$_width',
           'height': '$_height',
         });
 
         // Create and draw the visualization.
-        var chart = new js.Proxy(gviz.BarChart, query('#$_divName'));
+        var chart = new js.Proxy(gviz.LineChart, query('#$_divName'));
         chart.draw(tableData, options);
     })
     .catchError((dynamic e) {
