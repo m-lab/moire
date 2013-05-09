@@ -1,0 +1,34 @@
+application: mlab-moire
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: true
+
+default_expiration: "30d"
+
+handlers:
+- url: /(.*\.css)
+  mime_type: text/css
+  static_files: web/out/\1
+  upload: web/out/(.*\.css)
+
+- url: /(.*\.html)
+  mime_type: text/html
+  static_files: web/out/\1
+  upload: web/out/(.*\.html)
+
+- url: /(.*\.png)
+  mime_type: image/png
+  static_files: web/out/\1
+  upload: web/out/(.*\.png)
+
+- url: /(.*\.js)
+  mime_type: text/javascript
+  static_files: web/out/\1
+  upload: web/out/(.*\.js)
+
+- url: /(.*\.dart)
+  mime_type: application/dart
+  static_files: web/out/\1
+  upload: web/out/(.*\.dart)
+
