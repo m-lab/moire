@@ -18,10 +18,12 @@ class MetricDiv extends WebComponent {
 
   @observable
   String perYearChange;
-  
+
+  @observable
+  String rank;
+
   String get name => view.showMetricName(type);
   String get description => view.showMetricDefinition(type);
-  String get rank => view.showRank();
 
   //TODO: when inserted happens, query dom, get on-changed, add eventhandler,
   // does the same thing as inserted.
@@ -38,6 +40,7 @@ class MetricDiv extends WebComponent {
     // and the same period. We can do better.
     view.showMetricAverage(type).then((String s) => average = s);
     view.showMetricChange(type).then((String s) => change = s);
+    view.showRank(type).then((String s) => rank = s);
     // TODO: get change from last quarter and last year.
   }
 }

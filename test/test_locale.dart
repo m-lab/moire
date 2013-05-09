@@ -8,7 +8,6 @@ void testLocale() {
     });
 
     test("getParent", () {
-      Controller c = new Controller();
       Locale l = new Locale(continent: 'Europe', country: 'GB', region: 'H9', city: 'London');
 
       l.getParent()
@@ -17,7 +16,6 @@ void testLocale() {
     });
 
     test("getChildren", () {
-      Controller c = new Controller();
       Locale l = new Locale(continent: 'Europe', country: 'GB', region: '', city: '');
 
       l.getChildren()

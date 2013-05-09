@@ -25,7 +25,7 @@ class Chart {
   void _buildGraph() {
     DivElement alert = _view._addAlert("building $_metricType graph");
     // Create and populate the data table.
-    _view.controller.getMetricsForPeriod(_metricType)
+    _view._controller.getMetricsForPeriod(_metricType)
         .then((Map<DateTime, MetricValue> results) {
             alert.remove();
             List<List> listData = new List<List>();

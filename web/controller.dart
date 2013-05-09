@@ -17,7 +17,10 @@ class Controller {
   @observable
   DateTime endDate;
 
-  Locale locale;
+  Ranking _ranking = null;
+  String localeName;
+
+  Locale get locale => kLocales[localeName];
 
   String get startMonth => startDate.month.toString();
   set startMonth(String value) {
@@ -29,7 +32,6 @@ class Controller {
     endDate = new DateTime.utc(endDate.year, int.parse(value));
   }
 
-
   String get startYear  => startDate.year.toString();
   set startYear(String value) {
     startDate = new DateTime.utc(int.parse(value),startDate.month);
@@ -38,22 +40,6 @@ class Controller {
   String get endYear  => endDate.year.toString();
   set endYear(String value) {
     endDate = new DateTime.utc(int.parse(value),endDate.month);
-  }
-
-  Future<Map> _loadData(String api_call) {
-    Completer completer = new Completer();
-    HttpRequest.getString("$kMetricsAPIUrl/" + api_call).then((response) {
-      Map result = parse(response);
-      if (result.containsKey("error")) {
-        completer.completeError(result["error"]);
-      } else {
-        // print('Your metric ${result["units"]} is ${result["value"]}');
-        completer.complete(result);
-      }
-    })
-    .catchError((e) => completer.completeError("HTTP Error: $e"));
-    return completer.future;
-    //TODO: return an object instead of a map
   }
 
   /** Return the value of a metric of [type] for a given [date]. */
@@ -108,54 +94,34 @@ class Controller {
     return completer.future;
   }
 
-  /**
-   * Returns the average of a list of metrics. A list of metrics
-   * is used to compute aggregates over time.
-   */
-  MetricValue getAverage(List<MetricValue> l) {
-    assert(l != null);
-    if (l.isEmpty)
-      return null;
-    assert(l.every((e) => e.units == l.first.units));
-    double sum = 0.0;
-    l.forEach((e) => sum += e.value);
-    double avg = sum / l.length;
-    print('Your average is ${avg}');
-    return new MetricValue(avg, l.first.units);
+  Future<int> getRank(String metric_type) {
+    Completer completer = new Completer();
+    if (_ranking != null && _ranking.isUpToDate(this, metric_type)) {
+      completer.complete(_ranking.getRankForLocale(localeName));
+    } else {
+      // TODO: don't start this if one is in flight.
+      Ranking.create(this, metric_type).then((r) {
+          _ranking = r;
+          completer.complete(r.getRankForLocale(localeName));
+      });
+    }
+    return completer.future;
   }
 
-  /**
-   * Returns the percentage change of a list of metrics.A list of metrics
-   * is used to compute aggregates over time.
-   */
-
-  MetricValue getChange(List<MetricValue> l) {
-    assert(l != null);
-    if (l.isEmpty)
-      return null;
-    assert(l.every((e) => e.units == l.first.units));
-    double change = ((l.last.value - l.first.value) / l.last.value) * 100;
-    print('Your change is ${change} or (${change.toStringAsFixed(1)} %)');
-    return new MetricValue(change, l.first.units);
-  }
-
-  // TODO: get rank from somewhere.
-  int getRank() {
-    return 4;
+  Future<Map> _loadData(String api_call) {
+    Completer completer = new Completer();
+    HttpRequest.getString("$kMetricsAPIUrl/" + api_call).then((response) {
+      Map result = parse(response);
+      if (result.containsKey("error")) {
+        completer.completeError(result["error"]);
+      } else {
+        // print('Your metric ${result["units"]} is ${result["value"]}');
+        completer.complete(result);
+      }
+    })
+    .catchError((e) => completer.completeError("HTTP Error: $e"));
+    return completer.future;
+    //TODO: return an object instead of a map
   }
 }
 
-/**
- * Class to define web services.
- */
-class Service{
-  var url;
-  Service(this.url);
-}
-
-/**
- * Class to define internet service providers.
- */
-class ISP{
-  //TODO: implement internet service provider
-}

@@ -1,17 +1,22 @@
 part of moire;
 
 class View {
-  Controller controller;
+  Controller _controller;
 
-  View(this.controller);
+  // Used by various components. Related to controller.locale but may be limited in scope.
+  Locale selectedLocale;
 
-  String showTestCount() {
-    return "lots and lots of";
+  View(this._controller) {
+    selectedLocale = locale;
   }
+
+  Locale get locale => _controller.locale;
+
+  String showTestCount() => "lots and lots of";
 
   Future<String> showMetric(String metric_type) {
     Completer completer = new Completer();
-    controller.getMetricValue(metric_type, controller.startDate)
+    _controller.getMetricValue(metric_type, _controller.startDate)
         .then((content) {
             completer.complete(content.toString());
         })
@@ -21,9 +26,9 @@ class View {
 
   Future<String> showMetricChange(String metric_type) {
     Completer completer = new Completer();
-    controller.getMetricValuesForPeriod(metric_type)
+    _controller.getMetricValuesForPeriod(metric_type)
         .then((List<MetricValue> content) {
-            completer.complete(controller.getChange(content).toString());
+            completer.complete(getChange(content).toString());
         })
         .catchError((e) => _addError(e));
     return completer.future;
@@ -31,31 +36,36 @@ class View {
 
   Future<String> showMetricAverage(String metric_type) {
     Completer completer = new Completer();
-    controller.getMetricValuesForPeriod(metric_type)
+    _controller.getMetricValuesForPeriod(metric_type)
         .then((List<MetricValue> content) {
-            completer.complete(controller.getAverage(content).toString());
+            completer.complete(getAverage(content).toString());
         })
         .catchError((e) => _addError(e));
     return completer.future;
   }
 
+  // TODO: getter
   String showMetricName(String type) => kMetrics[type].name;
   String showMetricDefinition(String type) => kMetrics[type].description;
 
-  String showStartMonth() => controller.startMonth;
-  String showStartYear() => controller.startYear;
-  String showEndMonth() => controller.endMonth;
-  String showEndYear() => controller.endYear;
-  String setStartMonth(String startMonth) => controller.startMonth = startMonth;
-  String setEndMonth(String endMonth) => controller.endMonth = endMonth;
-  String setStartYear(String startYear) => controller.startYear = startYear;
-  String setEndYear(String endYear) => controller.endYear = endYear;
+  // TODO: getter/setter
+  String showStartMonth() => _controller.startMonth;
+  String showStartYear() => _controller.startYear;
+  String showEndMonth() => _controller.endMonth;
+  String showEndYear() => _controller.endYear;
+  String setStartMonth(String startMonth) => _controller.startMonth = startMonth;
+  String setEndMonth(String endMonth) => _controller.endMonth = endMonth;
+  String setStartYear(String startYear) => _controller.startYear = startYear;
+  String setEndYear(String endYear) => _controller.endYear = endYear;
 
-  String showRank() => controller.getRank().toString();
-
-  void _addError(String error) {
-    _addAlert(error, true);
+  Future<String> showRank(String metric_type) {
+    Completer completer = new Completer();
+    // TODO: pass locale (maybe view limited locale?)
+    _controller.getRank(metric_type).then((int rank) => completer.complete(rank.toString()));
+    return completer.future;
   }
+
+  void _addError(String error) => _addAlert(error, true);
 
   DivElement _addAlert(String alert, [bool isError = false]) {
     ButtonElement closeButton = new ButtonElement();

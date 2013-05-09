@@ -8,12 +8,8 @@ const Map<String, Locale> kLocales = const<String, Locale> {
   "amsterdam": const Locale(continent: 'Europe', country: '528',
                             region: 'nh', city: 'amsterdam'),
   "spain": const Locale(continent: 'Europe', country: '724'),
-  "pittsburg": const Locale(continent: 'North America', country: '840',
-                            region: 'ca', city: 'pittsburg'),
   "san francisco": const Locale(continent: 'North America', country: '840',
                                 region: 'ca', city: 'san-francisco'),
-  "mountain view": const Locale(continent: 'North America', country: '840',
-                                region: 'ca', city: 'Mountain View'),
   "california": const Locale(continent: 'North America', country: '840',
                              region: 'ca'),
 };

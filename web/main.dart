@@ -8,8 +8,7 @@ void main() {
   //TODO: move to tests
   controller.startDate = new DateTime.utc(2012, 02, 01);
   controller.endDate = new DateTime.utc(2012, 04, 01);
-  controller.locale = new Locale(continent: 'Europe', country: '826',
-      region: 'eng', city: 'london');
+  controller.localeName = 'london';
 
 
   //Handles url's
