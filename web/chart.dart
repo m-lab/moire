@@ -32,8 +32,9 @@ class Chart {
             //listData.add(['Date', 'Value']);
             List<DateTime> keys = results.keys.toList();
             keys.sort((a,b) => a.compareTo(b));
-            keys.forEach((k) => listData.add(([new js.Proxy(js.context.Date, k.toString()), results[k].value])));
-            //results.forEach((k, v) => listData.add([new js.Proxy(js.context.Date, k.toString()), v.value]));
+            keys.forEach((k) => listData.add(
+                ([new js.Proxy(js.context.Date, k.toString()),
+                  results[k].value])));
             var arrayData = js.array(listData);
 
             var gviz = js.context.google.visualization;
@@ -42,10 +43,9 @@ class Chart {
             data.addColumn('date', 'Date');
             data.addColumn('number', 'Value');
             data.addRows(arrayData);
-            //var tableData = gviz.arrayToDataTable(arrayData);
 
             // Sets options for chart.
-            //TODO: subclasses have other options
+            //TODO: subclasses for other options
             var options = js.map({
               'curveType': 'none',
               'legend': _legend,

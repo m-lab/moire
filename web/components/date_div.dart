@@ -6,17 +6,13 @@ import '../moire.dart';
 class DateDiv extends WebComponent {
   View view;
 
-  @observable
-  String get startMonth => view.showStartMonth();
-  @observable
-  String get startYear => view.showStartYear();
-  @observable
-  String get endMonth => view.showEndMonth();
-  @observable
-  String get endYear => view.showEndYear();
+  @observable String get startMonth => view.startMonth;
+  @observable String get startYear => view.startYear;
+  @observable String get endMonth => view.endMonth;
+  @observable String get endYear => view.endYear;
 
-  set startMonth(String month) => view.setStartMonth(month);
-  set endMonth(String month) => view.setEndMonth(month);
-  set endYear(String year) => view.setEndYear(year);
-  set startYear(String year) => view.setStartYear(year);
+  set startMonth(String month) => view.startMonth = month;
+  set startYear(String year) => view.startYear = year;
+  set endMonth(String month) => view.endMonth = month;
+  set endYear(String year) => view.endYear = year;
 }

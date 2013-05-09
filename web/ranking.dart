@@ -1,5 +1,25 @@
 part of moire;
 
+// BUG: Uncaught Error: Bad state: Future already completed
+// Stack Trace:
+// #0      _CompleterImpl.completeError (dart:async/future_impl.dart:14:22)
+// #1      Ranking._buildRankingForMetric.<anonymous closure>.<anonymous closure> (http://127.0.0.1:3030/home/dominich/git/moire/web/ranking.dart:76:36)
+// #2      _CatchErrorFuture._sendError (dart:async/future_impl.dart:317:24)
+// #3      _FutureImpl._setError (dart:async/future_impl.dart:192:26)
+// #4      _ThenFuture._sendValue (dart:async/future_impl.dart:282:16)
+// #5      _FutureImpl._setValue (dart:async/future_impl.dart:176:26)
+// #6      _CompleterImpl.complete (dart:async/future_impl.dart:11:21)
+// #7      Controller._loadData.<anonymous closure> (http://127.0.0.1:3030/home/dominich/git/moire/web/out/controller.dart:143:27)
+// #8      _ThenFuture._sendValue (dart:async/future_impl.dart:279:24)
+// #9      _FutureImpl._setValue (dart:async/future_impl.dart:176:26)
+// #10     _FutureImpl._setOrChainValue (dart:async/future_impl.dart:253:16)
+// #11     _ThenFuture._sendValue (dart:async/future_impl.dart:285:21)
+// #12     _FutureImpl._setValue (dart:async/future_impl.dart:176:26)
+// #13     _CompleterImpl.complete (dart:async/future_impl.dart:11:21)
+// #14     HttpRequest.request.<anonymous closure> (file:///mnt/data/b/build/slave/dartium-lucid32-full-trunk/build/src/out/Release/gen/webkit/bindings/dart/dart/html/HttpRequest.dart:26:27)
+//
+// Exception: Bad state: Future already completed
+
 class Ranking {
   Controller _controller;
 

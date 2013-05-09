@@ -20,62 +20,63 @@
 
 <body>
 <div id="page" class="container">
-<div id="masthead" class="masthead">
-  <h3>Open Internet Report</h3>
-  <div class="navbar">
-    <div class="navbar-inner">
-      <div class="container">
-        <ul class="nav">
-          <li><a href="index.html">Home</a></li>
-          <li class="active"><a href="explore.html">Explore</a></li>
-          <li><a href="ranking.html">Rankings</a></li>
-          <li><a href="#">Your City</a></li>
-          <li><a href="#">Methods</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="alerts"></div>
-
-<div id= "controls" class="row-fluid">
-    <div class="row-fluid">
-      <div class="span4"><div is='x-search-div' view="{{view}}"></div></div>
-      <div class="span4 offset4"><div is='x-date-div' view="{{view}}"></div></div>
-    </div>
-  <div class="row-fluid">
-    <div class="span4"><div is='x-breadcrumb-div' view="{{view}}"></div></div>
-  </div>
-</div>
-
-<div id="content" class="row-fluid">
-  <div class="span3"><div is='x-overview-div' view="{{view}}"></div></div>
-      <div id="main-content" class="span9">
-      <div class="row">
-        <h4>Speed</h4>
-        <p>These metrics are related to the speed that users are achieving on
-           their connections. We conclude this based on {{view.showTestCount()}}
-           individual test results between {{view.showStartMonth()}} -
-           {{view.showStartYear()}} and {{view.showEndMonth()}} - {{view.showEndYear()}}.
-        </p>
-      </div>
-      <div class="row">
-        <div is='x-metric-div' view="{{view}}"
-             type="{{'download_throughput_med'}}" class="span6"></div>
-        <div is='x-graph-div' view="{{view}}" div_id="{{'download_med'}}"
-             type="{{'download_throughput_med'}}" class="span4"></div>
-      </div>
-      <div class="row">
-        <div is='x-metric-div' view="{{view}}"
-             type="{{'upload_throughput_med'}}" class="span6"></div>
-        <div is='x-graph-div' view="{{view}}" div_id="{{'upload_med'}}"
-             type="{{'upload_throughput_med'}}" class="span4"></div>
+  <div id="masthead" class="masthead">
+    <h3>Open Internet Report</h3>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            <li><a href="index.html">Home</a></li>
+            <li class="active"><a href="explore.html">Explore</a></li>
+            <li><a href="ranking.html">Rankings</a></li>
+            <li><a href="#">Your City</a></li>
+            <li><a href="#">Methods</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
         </div>
+      </div>
     </div>
   </div>
-</div>
+
+  <div id="alerts"></div>
+
+  <div id= "controls" class="row-fluid">
+    <div class="row-fluid">
+      <div class="span4"><div is='x-search-div' view="{{exploreView}}"></div></div>
+      <div class="span4 offset4"><div is='x-date-div' view="{{exploreView}}"></div></div>
+    </div>
+    <div class="row-fluid">
+      <div class="span4"><div is='x-breadcrumb-div' view="{{exploreView}}"></div></div>
+    </div>
+  </div>
+
+  <div id="content" class="row-fluid">
+    <div class="span3"><div is='x-overview-div' view="{{exploreView}}"></div></div>
+      <div id="main-content" class="span9">
+        <div class="row">
+          <h4>Speed</h4>
+          <p>These metrics are related to the speed that users are achieving on
+             their connections. We conclude this based on {{exploreView.testCount}}
+             individual test results between {{exploreView.startMonth}} -
+             {{exploreView.startYear}} and {{exploreView.endMonth}} -
+             {{exploreView.endYear}}.
+          </p>
+        </div>
+        <div class="row">
+          <div is='x-metric-div' view="{{exploreView}}"
+               type="{{'download_throughput_med'}}" class="span6"></div>
+          <div is='x-graph-div' view="{{exploreView}}" div_id="{{'download_med'}}"
+               type="{{'download_throughput_med'}}" class="span4"></div>
+        </div>
+        <div class="row">
+          <div is='x-metric-div' view="{{exploreView}}"
+               type="{{'upload_throughput_med'}}" class="span6"></div>
+          <div is='x-graph-div' view="{{exploreView}}" div_id="{{'upload_med'}}"
+               type="{{'upload_throughput_med'}}" class="span4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 <!-- javascript -->
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="js/bootstrap.js"></script>

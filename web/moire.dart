@@ -14,5 +14,7 @@ part 'metric.dart';
 part 'ranking.dart';
 part 'util.dart';
 part 'view.dart';
+part 'views/explore_view.dart';
+part 'views/ranking_view.dart';
 
 const String kMetricsAPIUrl = "http://mlab-metrics-api-server.appspot.com/api";

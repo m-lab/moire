@@ -1,14 +1,57 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Open Internet Report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
 
-<html>
-  <body>
-    <element name="ranking-view" extends="div">
-      <template>
-        <h3>
-          product view
-        </h3>
-      </template>
-      <script type="application/dart" src="ranking.dart"></script>
-    </element>
-  </body>
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/moire.css" rel="stylesheet">
+
+<link rel="import" href="components/metric_div.html">
+<link rel="import" href="components/date_div.html">
+<link rel="import" href="components/breadcrumb_div.html">
+<link rel="import" href="components/search_div.html">
+<link rel="import" href="components/overview_div.html">
+<link rel="import" href="components/graph_div.html">
+
+<body>
+<div id="page" class="container">
+  <div id="masthead" class="masthead">
+    <h3>Open Internet Report</h3>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <ul class="nav">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li class="active"><a href="ranking.html">Rankings</a></li>
+            <li><a href="#">Your City</a></li>
+            <li><a href="#">Methods</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="alerts"></div>
+
+  <div id= "controls" class="row-fluid">
+  </div>
+
+  <div id="content" class="row-fluid">
+  </div>
+</div>
+<!-- javascript -->
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="application/dart" src="main.dart"></script>
+<script src="packages/browser/dart.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+</body>
 </html>

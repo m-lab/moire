@@ -3,10 +3,9 @@ import 'package:web_ui/watcher.dart' as watchers;
 import 'dart:html';
 import '../moire.dart';
 
-// TODO: country
-
+// TODO: continent
 class BreadCrumbDiv extends WebComponent {
-  View view;
+  ExploreView view;
 
   void showCountry() {
     view.selectedLocale = new Locale(country: view.locale.country);

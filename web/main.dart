@@ -2,14 +2,14 @@ import 'moire.dart';
 import 'urls.dart';
 
 final Controller controller = new Controller();
-final View view = new View(controller);
+final ExploreView exploreView = new ExploreView(controller);
+final RankingView rankingView = new RankingView(controller);
 
 void main() {
-  //TODO: move to tests
+  // Start values for site.
   controller.startDate = new DateTime.utc(2012, 02, 01);
   controller.endDate = new DateTime.utc(2012, 04, 01);
   controller.localeName = 'london';
-
 
   //Handles url's
   //TODO: fix handlers

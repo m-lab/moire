@@ -4,30 +4,20 @@ import 'package:web_ui/watcher.dart' as watchers;
 import '../moire.dart';
 
 class MetricDiv extends WebComponent {
-  View view;
+  ExploreView view;
   String type;
 
-  @observable
-  String average;
+  @observable String average;
+  @observable String change;
+  @observable String perQuarterChange;
+  @observable String perYearChange;
 
-  @observable
-  String change;
-
-  @observable
-  String perQuarterChange;
-
-  @observable
-  String perYearChange;
-
-  @observable
-  String rank;
+  @observable String rank;
 
   String get name => view.showMetricName(type);
   String get description => view.showMetricDefinition(type);
 
-  //TODO: when inserted happens, query dom, get on-changed, add eventhandler,
-  // does the same thing as inserted.
-
+  //TODO: when inserted happens, query dom for breadcrumb/search, get on-changed, add eventhandler.
   void inserted() {
     queryAll("input[name=dateInput]").forEach((InputElement e) {
       e.onChange.listen((Event e) => _updateAsyncMetricData());

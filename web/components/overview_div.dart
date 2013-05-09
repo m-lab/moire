@@ -4,17 +4,12 @@ import 'package:web_ui/watcher.dart' as watchers;
 import '../moire.dart';
 
 class OverviewDiv extends WebComponent {
-  View view;
+  ExploreView view;
 
-  @observable
-  String downloadAverage;
+  @observable String downloadAverage;
+  @observable String uploadAverage;
 
-  @observable
-  String uploadAverage;
-
-  //TODO: when inserted happens, query dom, get on-changed, add eventhandler,
-  // does the same thing as inserted.
-
+  //TODO: when inserted happens, query dom for onsearch/breadcrumb, get on-changed, add eventhandler,
   void inserted() {
     queryAll("input[name=dateInput]").forEach((InputElement e) {
       e.onChange.listen((Event e) => _updateAsyncMetricData());
@@ -23,10 +18,9 @@ class OverviewDiv extends WebComponent {
   }
 
   void _updateAsyncMetricData() {
-    // TODO: Currently this is going to make two API calls for the same metric
-    // and the same period. We can do better.
-    view.showMetricAverage('download_throughput_max').then((String s) => downloadAverage = s);
-    view.showMetricAverage('upload_throughput_max').then((String s) => uploadAverage = s);
-    // TODO: get change from last quarter and last year.
+    view.showMetricAverage('download_throughput_max').then((String s) =>
+        downloadAverage = s);
+    view.showMetricAverage('upload_throughput_max').then((String s) =>
+        uploadAverage = s);
   }
 }
