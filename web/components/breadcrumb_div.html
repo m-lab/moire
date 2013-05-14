@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-    <element name='x-breadcrumb-div' constructor="BreadCrumbDiv" extends='div'>
-      <template>
-      <ul class="breadcrumb">
-        <li id="bc-continent"><a href="#">World</a> <span class="divider">/</span></li>
-        <template instantiate="if !view.locale.city.isEmpty">
-          <li id="bc-country"><a href="#" on-click="showCountry()">{{view.locale.country}}</a> <span class="divider">/</span></li>
-        </template>
-        <template instantiate="if !view.locale.region.isEmpty">
-          <li id="bc-region"><a href="#" on-click="showRegion()">{{view.locale.region}}</a> <span class="divider">/</span></li>
-        </template>
-        <template instantiate="if !view.locale.city.isEmpty">
-          <li id="bc-city"><a href="#" on-click="showCity()">{{view.locale.city}}</a></li>
-        </template>
-      </ul>
-      </template>
-    <script type="application/dart" src="breadcrumb_div.dart"></script>
-  </element>
+<element name='x-breadcrumb-div' constructor="BreadCrumbDiv" extends='div'>
+  <template>
+  <ul class="breadcrumb">
+    <li id="bc-continent"><a href="#">World</a> <span class="divider">/</span></li>
+    <template instantiate="if !view.locale.city.isEmpty">
+      <li id="bc-country"><a href="#" on-click="showCountry()">{{view.locale.country}}</a> <span class="divider">/</span></li>
+    </template>
+    <template instantiate="if !view.locale.region.isEmpty">
+      <li id="bc-region"><a href="#" on-click="showRegion()">{{view.locale.region}}</a> <span class="divider">/</span></li>
+    </template>
+    <template instantiate="if !view.locale.city.isEmpty">
+      <li id="bc-city"><a href="#" on-click="showCity()">{{view.locale.city}}</a></li>
+    </template>
+  </ul>
+  </template>
+  <script type="application/dart" src="breadcrumb_div.dart"></script>
+</element>

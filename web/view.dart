@@ -13,10 +13,10 @@ class View {
   String get endMonth => _controller.endMonth;
   String get endYear => _controller.endYear;
 
-  String set startMonth(String startMonth) => _controller.startMonth = startMonth;
-  String set startYear(String startYear) => _controller.startYear = startYear;
-  String set endMonth(String endMonth) => _controller.endMonth = endMonth;
-  String set endYear(String endYear) => _controller.endYear = endYear;
+  void set startMonth(String startMonth) => _controller.startMonth = startMonth;
+  void set startYear(String startYear) => _controller.startYear = startYear;
+  void set endMonth(String endMonth) => _controller.endMonth = endMonth;
+  void set endYear(String endYear) => _controller.endYear = endYear;
 
   // Alerts
   void _addError(String error) => _addAlert(error, true);

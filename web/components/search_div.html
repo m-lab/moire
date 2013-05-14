@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-    <element name='x-search-div' constructor="SearchDiv" extends='div'>
-      <template>
+<element name='x-search-div' constructor="SearchDiv" extends='div'>
+  <template>
+    <div>
+      <input type="text" bind-value="search" id="appendedInputButton"><button class="btn" on-click="setLocation()">Go here</button>
       <div>
-        <input type="text" bind-value="search" id="appendedInputButton"><button class="btn" on-click="setLocation()">Go here</button>
-        <div>
-          <template instantiate='if noMatches'><span>No matches</span></template>
-          <template instantiate='if !noMatches'><span>Simulated autocomplete:</span></template>
-        </div>
-        <div><ul>
+        <template instantiate='if noMatches'><span>No matches</span></template>
+        <template instantiate='if !noMatches'><span>Simulated autocomplete:</span></template>
+      </div>
+      <div>
+        <ul>
           <template iterate='location in results'>
             <li>{{location}}</li>
           </template>
         </ul>
-        </div>
       </div>
-      </template>
-    <script type="application/dart" src="search_div.dart"></script>
-  </element>
+    </div>
+  </template>
+  <script type="application/dart" src="search_div.dart"></script>
+</element>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Open Internet Report</title>
+<title>Open Internet Report - Explore</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
@@ -19,42 +19,42 @@
 <link rel="import" href="components/graph_div.html">
 
 <body>
-<div id="page" class="container">
-  <div id="masthead" class="masthead">
-    <h3>Open Internet Report</h3>
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="container">
-          <ul class="nav">
-            <li><a href="index.html">Home</a></li>
-            <li class="active"><a href="explore.html">Explore</a></li>
-            <li><a href="ranking.html">Rankings</a></li>
-            <li><a href="#">Your City</a></li>
-            <li><a href="#">Methods</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
+  <div id="page" class="container">
+    <div id="masthead" class="masthead">
+      <h1>Open Internet Report</h1>
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <ul class="nav">
+              <li><a href="index.html">Home</a></li>
+              <li class="active"><a href="explore.html">Explore</a></li>
+              <li><a href="ranking.html">Rankings</a></li>
+              <li><a href="#">Your City</a></li>
+              <li><a href="#">Methods</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div id="alerts"></div>
+    <div id="alerts"></div>
 
-  <div id= "controls" class="row-fluid">
-    <div class="row-fluid">
-      <div class="span4"><div is='x-search-div' view="{{exploreView}}"></div></div>
-      <div class="span4 offset4"><div is='x-date-div' view="{{exploreView}}"></div></div>
+    <div id= "controls" class="row-fluid">
+      <div class="row-fluid">
+        <div class="span4"><div is='x-search-div' view="{{exploreView}}"></div></div>
+        <div class="span4 offset4"><div is='x-date-div' view="{{exploreView}}"></div></div>
+      </div>
+      <div class="row-fluid">
+        <div class="span4"><div is='x-breadcrumb-div' view="{{exploreView}}"></div></div>
+      </div>
     </div>
-    <div class="row-fluid">
-      <div class="span4"><div is='x-breadcrumb-div' view="{{exploreView}}"></div></div>
-    </div>
-  </div>
 
-  <div id="content" class="row-fluid">
-    <div class="span3"><div is='x-overview-div' view="{{exploreView}}"></div></div>
+    <div id="content" class="row-fluid">
+      <div class="span3"><div is='x-overview-div' view="{{exploreView}}"></div></div>
       <div id="main-content" class="span9">
         <div class="row">
-          <h4>Speed</h4>
+          <h2>Speed</h2>
           <p>These metrics are related to the speed that users are achieving on
              their connections. We conclude this based on {{exploreView.testCount}}
              individual test results between {{exploreView.startMonth}} -
@@ -77,12 +77,12 @@
       </div>
     </div>
   </div>
-<!-- javascript -->
-<script src="http://code.jquery.com/jquery.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script type="application/dart" src="main.dart"></script>
-<script src="packages/browser/dart.js"></script>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <!-- javascript -->
+  <script src="http://code.jquery.com/jquery.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script type="application/dart" src="main.dart"></script>
+  <script src="packages/browser/dart.js"></script>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 </body>
 </html>

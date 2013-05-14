@@ -4,6 +4,7 @@ import 'urls.dart';
 final Controller controller = new Controller();
 final ExploreView exploreView = new ExploreView(controller);
 final RankingView rankingView = new RankingView(controller);
+final MetricView metricView = new MetricView(controller);
 
 void main() {
   // Start values for site.
