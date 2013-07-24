@@ -5,9 +5,9 @@ import 'package:web_ui/component_build.dart';
 
 const List<String> kPages = const<String> [
     'web/explore.html',
-    'web/index.html',
+//    'web/index.html',
     'web/ranking.html',
-    'web/metric.html'
+//    'web/metric.html'
 ];
 
 main() => build(new Options().arguments, kPages);

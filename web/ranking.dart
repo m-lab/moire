@@ -1,6 +1,6 @@
 part of moire;
 
-// BUG: Uncaught Error: Bad state: Future already completed
+// TODO: BUG: Uncaught Error: Bad state: Future already completed
 // Stack Trace:
 // #0      _CompleterImpl.completeError (dart:async/future_impl.dart:14:22)
 // #1      Ranking._buildRankingForMetric.<anonymous closure>.<anonymous closure> (http://127.0.0.1:3030/home/dominich/git/moire/web/ranking.dart:76:36)

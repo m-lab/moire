@@ -23,7 +23,7 @@ class SearchDiv extends WebComponent {
   void setLocation() {
      if (!kLocales.containsKey(search.toLowerCase()))
        return;
-     view._controller.localeName = search.toLowerCase();
+     view.localeName = search.toLowerCase();
      print('You are now at ${view.locale}');
      watchers.dispatch();
   }
